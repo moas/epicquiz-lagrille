@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 from core.games.models import Episode
 from core.games.models import Participant
+from core.games.models import QueryConfig
 from core.helpers.functional import generate_username
 
 User = get_user_model()
@@ -51,3 +52,10 @@ class ParticipantSerializer(serializers.ModelSerializer):
                 continue
 
         raise serializers.ValidationError(UNIQUE_USERNAME_ERROR)
+
+
+class QueryConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QueryConfig
+        fields = ["id", "join", "mode", "tags", "level"]
+        read_only_fields = ["id"]
