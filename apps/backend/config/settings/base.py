@@ -101,6 +101,7 @@ LOCAL_APPS = [
     "core.users",
     "core.audit.apps.AuditConfig",
     "core.qa.apps.QaConfig",
+    "core.games.apps.GamesConfig",
     "core.grid.apps.AuditConfig",
     # Your stuff: custom apps go here
 ]

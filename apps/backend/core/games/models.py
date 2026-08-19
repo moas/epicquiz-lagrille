@@ -35,7 +35,6 @@ class Episode(BaseModel, TimeFramedModel):
         ordering = ("title",)
 
 
-
 class Participant(BaseModel):
 
     class Role(models.TextChoices):
