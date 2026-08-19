@@ -3,10 +3,12 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 from rest_framework.routers import SimpleRouter
 
+from core.games.api.views import EpisodeViewSet
 from core.users.api.views import LoginView
 from core.users.api.views import LogoutView
 
 router = DefaultRouter() if settings.DEBUG else SimpleRouter()
+router.register("episodes", EpisodeViewSet, basename="episode")
 
 
 app_name = "api"
