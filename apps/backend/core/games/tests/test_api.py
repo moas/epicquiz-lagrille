@@ -7,6 +7,7 @@ from rest_framework.test import APIClient
 from core.games.models import Episode
 from core.games.models import Participant
 from core.games.models import QueryConfig
+from core.games.models import StealAttribute
 from core.helpers.functional import USERNAME_ALPHABET
 from core.helpers.functional import generate_username
 from core.users.tests.factories import UserFactory
@@ -154,3 +155,36 @@ def test_staff_can_manage_episode_query_configs(api_client):
 
     assert delete_response.status_code == HTTPStatus.NO_CONTENT
     assert not QueryConfig.objects.filter(pk=query_config.pk).exists()
+
+
+def test_staff_can_manage_episode_steal_attributes(api_client):
+    staff_user = UserFactory.create(is_staff=True)
+    episode = Episode.objects.create(title="Épisode 1")
+    api_client.force_authenticate(staff_user)
+    attributes_url = reverse("api:episode-steal-attributes", kwargs={"pk": episode.pk})
+
+    create_response = api_client.post(attributes_url)
+
+    assert create_response.status_code == HTTPStatus.CREATED
+    attribute = StealAttribute.objects.get(pk=create_response.data["id"])
+    assert attribute.episode == episode
+
+    list_response = api_client.get(attributes_url)
+
+    assert list_response.status_code == HTTPStatus.OK
+    assert len(list_response.data) == 1
+
+    attribute_url = reverse(
+        "api:episode-steal-attribute",
+        kwargs={"pk": episode.pk, "attribute_id": attribute.pk},
+    )
+    update_response = api_client.patch(attribute_url, {"is_active": False})
+
+    assert update_response.status_code == HTTPStatus.OK
+    attribute.refresh_from_db()
+    assert not attribute.is_active
+
+    delete_response = api_client.delete(attribute_url)
+
+    assert delete_response.status_code == HTTPStatus.NO_CONTENT
+    assert not StealAttribute.objects.filter(pk=attribute.pk).exists()

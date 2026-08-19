@@ -8,11 +8,15 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 from core.games.models import Episode
+from core.games.models import PrizeAttribute
 from core.games.models import QueryConfig
+from core.games.models import StealAttribute
 
 from .serializers import EpisodeSerializer
 from .serializers import ParticipantSerializer
+from .serializers import PrizeAttributeSerializer
 from .serializers import QueryConfigSerializer
+from .serializers import StealAttributeSerializer
 
 
 class EpisodeViewSet(
@@ -118,6 +122,104 @@ class EpisodeViewSet(
 
         serializer = QueryConfigSerializer(
             query_config,
+            data=request.data,
+            partial=request.method == "PATCH",
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    @action(
+        detail=True,
+        methods=["get", "post"],
+        url_path="steal-attributes",
+        url_name="steal-attributes",
+    )
+    def steal_attributes(self, request, pk=None):
+        return self._attribute_collection(
+            request,
+            self.get_object(),
+            StealAttribute,
+            StealAttributeSerializer,
+        )
+
+    @action(
+        detail=True,
+        methods=["get", "put", "patch", "delete"],
+        url_path=r"steal-attributes/(?P<attribute_id>[^/.]+)",
+        url_name="steal-attribute",
+    )
+    def steal_attribute(self, request, attribute_id=None, pk=None):
+        return self._attribute_detail(
+            request,
+            self.get_object(),
+            attribute_id,
+            StealAttribute,
+            StealAttributeSerializer,
+        )
+
+    @action(
+        detail=True,
+        methods=["get", "post"],
+        url_path="prize-attributes",
+        url_name="prize-attributes",
+    )
+    def prize_attributes(self, request, pk=None):
+        return self._attribute_collection(
+            request,
+            self.get_object(),
+            PrizeAttribute,
+            PrizeAttributeSerializer,
+        )
+
+    @action(
+        detail=True,
+        methods=["get", "put", "patch", "delete"],
+        url_path=r"prize-attributes/(?P<attribute_id>[^/.]+)",
+        url_name="prize-attribute",
+    )
+    def prize_attribute(self, request, attribute_id=None, pk=None):
+        return self._attribute_detail(
+            request,
+            self.get_object(),
+            attribute_id,
+            PrizeAttribute,
+            PrizeAttributeSerializer,
+        )
+
+    @staticmethod
+    def _attribute_collection(request, episode, model_class, serializer_class):
+        if request.method == "GET":
+            queryset = model_class.objects.filter(episode=episode)
+            return Response(serializer_class(queryset, many=True).data)
+
+        serializer = serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        attribute = serializer.save(episode=episode)
+        return Response(
+            serializer_class(attribute).data,
+            status=status.HTTP_201_CREATED,
+        )
+
+    @staticmethod
+    def _attribute_detail(
+        request,
+        episode,
+        attribute_id,
+        model_class,
+        serializer_class,
+    ):
+        attribute = get_object_or_404(model_class, episode=episode, pk=attribute_id)
+
+        if request.method == "GET":
+            return Response(serializer_class(attribute).data)
+
+        if request.method == "DELETE":
+            attribute.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        serializer = serializer_class(
+            attribute,
             data=request.data,
             partial=request.method == "PATCH",
         )

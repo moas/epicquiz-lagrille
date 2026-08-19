@@ -4,7 +4,9 @@ from rest_framework import serializers
 
 from core.games.models import Episode
 from core.games.models import Participant
+from core.games.models import PrizeAttribute
 from core.games.models import QueryConfig
+from core.games.models import StealAttribute
 from core.helpers.functional import generate_username
 
 User = get_user_model()
@@ -58,4 +60,18 @@ class QueryConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = QueryConfig
         fields = ["id", "join", "mode", "tags", "level"]
+        read_only_fields = ["id"]
+
+
+class StealAttributeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StealAttribute
+        fields = ["id", "is_active"]
+        read_only_fields = ["id"]
+
+
+class PrizeAttributeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrizeAttribute
+        fields = ["id", "is_active", "name", "description", "image"]
         read_only_fields = ["id"]
