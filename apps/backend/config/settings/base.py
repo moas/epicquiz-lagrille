@@ -1,5 +1,6 @@
 # ruff: noqa: ERA001, E501
 """Base settings to build other settings files upon."""
+
 import os
 import ssl
 from pathlib import Path
@@ -86,6 +87,7 @@ DJANGO_APPS = [
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
+    "polymorphic"
     "crispy_forms",
     "crispy_bootstrap5",
     "django_celery_beat",
@@ -97,6 +99,9 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "core.users",
+    "core.audit.apps.AuditConfig",
+    "core.qa.apps.QaConfig",
+    "core.grid.apps.AuditConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

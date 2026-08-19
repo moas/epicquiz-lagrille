@@ -393,7 +393,9 @@ dependencies = [
     { name = "django-cors-headers" },
     { name = "django-crispy-forms" },
     { name = "django-environ" },
+    { name = "django-fsm-2" },
     { name = "django-model-utils" },
+    { name = "django-polymorphic" },
     { name = "django-redis" },
     { name = "djangorestframework" },
     { name = "drf-spectacular" },
@@ -443,7 +445,9 @@ requires-dist = [
     { name = "django-cors-headers", specifier = "==4.9.0" },
     { name = "django-crispy-forms", specifier = "==2.7" },
     { name = "django-environ", specifier = "==0.14.0" },
+    { name = "django-fsm-2", specifier = ">=4.2.4" },
     { name = "django-model-utils", specifier = "==5.0.0" },
+    { name = "django-polymorphic", specifier = ">=4.11.7" },
     { name = "django-redis", specifier = "==7.0.0" },
     { name = "djangorestframework", specifier = "==3.18.0" },
     { name = "drf-spectacular", specifier = "==0.30.0" },
@@ -693,6 +697,19 @@ wheels = [
 ]
 
 [[package]]
+name = "django-fsm-2"
+version = "4.2.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "django-stubs-ext" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/fa/eb/594712952364f0b1f009b9c414940a09031d07fe95bb888e92f50aa9a550/django_fsm_2-4.2.4.tar.gz", hash = "sha256:0e395afd03ff504afd476e8568ca213aafc3324bd4e5427e5b3287f7b1e7d979", size = 21544, upload-time = "2026-03-16T20:33:33.476Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/33/f6/75b74d0b631abfccfb71dda88b530ccccfba48cd6db674f7c27f027b827b/django_fsm_2-4.2.4-py3-none-any.whl", hash = "sha256:0072be359520075eee4baead3873e5eb8f1700b4f91e41208058cbea0ceae9b9", size = 23282, upload-time = "2026-03-16T20:33:31.97Z" },
+]
+
+[[package]]
 name = "django-model-utils"
 version = "5.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -702,6 +719,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/81/60/5e232c32a2c977cc1af8c70a38ef436598bc649ad89c2c4568454edde2c9/django_model_utils-5.0.0.tar.gz", hash = "sha256:041cdd6230d2fbf6cd943e1969318bce762272077f4ecd333ab2263924b4e5eb", size = 80559, upload-time = "2024-09-04T11:35:22.858Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/fd/13/87a42048700c54bfce35900a34e2031245132775fb24363fc0e33664aa9c/django_model_utils-5.0.0-py3-none-any.whl", hash = "sha256:fec78e6c323d565a221f7c4edc703f4567d7bb1caeafe1acd16a80c5ff82056b", size = 42630, upload-time = "2024-09-04T11:36:23.166Z" },
+]
+
+[[package]]
+name = "django-polymorphic"
+version = "4.11.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/13/d2/2760062d571e534153e5e842ee56660b0ea87c0da93c2dd87a4c44becbf0/django_polymorphic-4.11.7.tar.gz", hash = "sha256:9d616e9e2870efd62a5ee387294830c80935a31786e50da137bd76668dd5437d", size = 62105, upload-time = "2026-08-01T06:40:26.796Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9e/db/544272a8852d47fe5a6e7b29b4dd8050e89fb674dec447c93c5284c5a427/django_polymorphic-4.11.7-py3-none-any.whl", hash = "sha256:23ee903f79b9c4ebd36fee952f955d80c3d51f3eee9fa23639c4bafe3be616a2", size = 79239, upload-time = "2026-08-01T06:40:25.431Z" },
 ]
 
 [[package]]
