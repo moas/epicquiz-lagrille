@@ -67,6 +67,8 @@ class Cell(BaseModel):
         OPENED = "OPENED", _("Opened")
 
     grid = models.ForeignKey(Grid, related_name="cells", on_delete=models.CASCADE)
+    x = models.PositiveSmallIntegerField(editable=False)
+    y = models.PositiveSmallIntegerField(editable=False)
     name = models.CharField(max_length=5, db_index=True, editable=False)
     challenge = models.OneToOneField(
         Challenge,
@@ -84,6 +86,16 @@ class Cell(BaseModel):
     class Meta:
         verbose_name = _("cell")
         verbose_name_plural = _("Cells")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["grid", "x", "y"],
+                name="unique_cell_coordinate_per_grid",
+            ),
+            models.UniqueConstraint(
+                fields=["grid", "name"],
+                name="unique_cell_name_per_grid",
+            ),
+        ]
 
     def __str__(self):
         return f"{self.name} (Grid {self.grid.id.hex[:8]})"

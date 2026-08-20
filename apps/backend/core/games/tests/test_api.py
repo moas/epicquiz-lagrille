@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 import pytest
+from django.db import IntegrityError
 from django.urls import reverse
 from rest_framework.test import APIClient
 
@@ -8,6 +9,8 @@ from core.games.models import Episode
 from core.games.models import Participant
 from core.games.models import QueryConfig
 from core.games.models import StealAttribute
+from core.grid.models import Cell
+from core.grid.models import Grid
 from core.helpers.functional import USERNAME_ALPHABET
 from core.helpers.functional import generate_username
 from core.users.tests.factories import UserFactory
@@ -188,3 +191,65 @@ def test_staff_can_manage_episode_steal_attributes(api_client):
 
     assert delete_response.status_code == HTTPStatus.NO_CONTENT
     assert not StealAttribute.objects.filter(pk=attribute.pk).exists()
+
+
+def test_staff_creates_grid_cells_from_configured_coordinates(api_client):
+    staff_user = UserFactory.create(is_staff=True)
+    episode = Episode.objects.create(
+        title="Épisode 1",
+        metadata={
+            "grid_config": {
+                "rows": 2,
+                "columns": 3,
+                "empty_cell_count": 1,
+                "point_distribution": {"100": 5},
+                "coordinate_format": {
+                    "x": "A,B",
+                    "y": "0,1,2",
+                },
+            },
+        },
+    )
+    api_client.force_authenticate(staff_user)
+
+    response = api_client.post(reverse("api:episode-grid", kwargs={"pk": episode.pk}))
+
+    assert response.status_code == HTTPStatus.CREATED
+    grid = Grid.objects.get(episode=episode)
+    assert list(
+        grid.cells.order_by("x", "y").values_list("x", "y", "name"),
+    ) == [
+        (0, 0, "A0"),
+        (0, 1, "A1"),
+        (0, 2, "A2"),
+        (1, 0, "B0"),
+        (1, 1, "B1"),
+        (1, 2, "B2"),
+    ]
+
+    with pytest.raises(IntegrityError):
+        Cell.objects.create(grid=grid, x=1, y=0, name="A0")
+
+
+def test_grid_configuration_requires_one_label_per_coordinate(api_client):
+    staff_user = UserFactory.create(is_staff=True)
+    api_client.force_authenticate(staff_user)
+
+    response = api_client.post(
+        reverse("api:episode-list"),
+        {
+            "title": "Épisode 1",
+            "metadata": {
+                "grid_config": {
+                    "rows": 2,
+                    "columns": 2,
+                    "empty_cell_count": 0,
+                    "point_distribution": {"100": 4},
+                    "coordinate_format": {"x": "A", "y": "0,1"},
+                },
+            },
+        },
+    )
+
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert "coordinate_format" in response.data["metadata"]

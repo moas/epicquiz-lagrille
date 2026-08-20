@@ -3,6 +3,8 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_fsm import FSMField
+from django_fsm import transition
 from model_utils import FieldTracker
 from model_utils.models import TimeFramedModel
 from polymorphic.models import PolymorphicModel
@@ -11,9 +13,13 @@ from core.helpers.models import BaseModel
 
 
 class Episode(BaseModel, TimeFramedModel):
-    """
-    Game model
-    """
+    """Game model."""
+
+    class State(models.TextChoices):
+        PENDING = "pending", _("Pending")
+        START = "start", _("Started")
+        END = "end", _("Ended")
+
     title = models.CharField(max_length=255, verbose_name=_("Title"))
     time_slot = models.PositiveSmallIntegerField(
         _("Default game timespan"),
@@ -21,13 +27,34 @@ class Episode(BaseModel, TimeFramedModel):
         validators=[MinValueValidator(1)],
         help_text=_("Base of timespan for current game (seconds)"),
     )
-    metadata = models.JSONField(blank=True, null=True)
+    metadata = models.JSONField(default=dict, blank=True)
     is_active = models.BooleanField(default=True)
+    state = FSMField(
+        choices=State.choices,
+        default=State.PENDING,
+        protected=True,
+    )
 
     tracker = FieldTracker(fields=("is_active",))
 
     def __str__(self):
         return self.title
+
+    def has_grid(self):
+        return hasattr(self, "grid")
+
+    @transition(
+        field=state,
+        source=State.PENDING,
+        target=State.START,
+        conditions=[has_grid],
+    )
+    def start(self):
+        pass
+
+    @transition(field=state, source=State.START, target=State.END)
+    def end(self):
+        pass
 
     class Meta:
         verbose_name = _("Game")
