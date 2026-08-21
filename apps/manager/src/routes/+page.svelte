@@ -87,7 +87,7 @@
 <main id="content">
 	<header class="topbar">
 		<a class="brand" href="/" aria-label="EpicQuiz - La Grille, liste des épisodes"><img src="/brand-icon.png" alt="" /><span>La Grille</span></a>
-		<div class="topbar-actions"><button type="button" class="logout-button" onclick={logout}>Déconnexion</button><button type="button" class="primary-action" onclick={() => isCreateDialogOpen = true}>Créer un épisode</button></div>
+		<div class="topbar-actions"><div class="primary-actions" style="display:flex;align-items:center;gap:1rem"><a class="logout-button" href="/questions">Bibliothèque</a><button type="button" class="primary-action" onclick={() => isCreateDialogOpen = true}>Créer un épisode</button></div><button type="button" class="logout-button" onclick={logout}>Déconnexion</button></div>
 	</header>
 
 	<section class="intro" aria-labelledby="page-title"><p class="eyebrow">Espace manager</p><h1 id="page-title">Vos épisodes</h1><p>Recherchez, filtrez puis ouvrez un épisode pour préparer votre session.</p></section>

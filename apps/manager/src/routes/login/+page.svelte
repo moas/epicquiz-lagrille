@@ -338,9 +338,6 @@
 		transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
 	}
 
-	input::placeholder {
-		color: #94a3b8;
-	}
 
 	input:hover {
 		border-color: #64748b;

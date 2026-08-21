@@ -8,10 +8,10 @@
 	}
 
 	const existing = initialConfig();
-	let rows = $state(existing?.rows ?? 5);
-	let columns = $state(existing?.columns ?? 5);
+	let rows = $state(existing?.rows ?? 6);
+	let columns = $state(existing?.columns ?? 8);
 	let emptyCellCount = $state(existing?.empty_cell_count ?? 0);
-	let distribution = $state<Record<string, number>>(existing?.point_distribution ?? { '100': 9, '200': 8, '300': 8 });
+	let distribution = $state<Record<string, number>>(existing?.point_distribution ?? { '1': 23, '2': 9, '3': 8, '4': 5, '5': 3 });
 	let isSaving = $state(false);
 	let formError = $state('');
 	let distributionError = $state('');
@@ -21,6 +21,8 @@
 	const cellCount = $derived(rows * columns);
 	const playableCells = $derived(cellCount - emptyCellCount);
 	const distributedCells = $derived(Object.values(distribution).reduce((total, count) => total + (Number(count) || 0), 0));
+	const remainingCells = $derived(playableCells - distributedCells);
+	const totalPoints = $derived(Object.entries(distribution).reduce((total, [level, count]) => total + Number(level) * (Number(count) || 0), 0));
 	const rowPreview = $derived(createLabels(rows, true).join(', '));
 	const columnPreview = $derived(createLabels(columns, false).join(', '));
 
@@ -40,9 +42,11 @@
 	}
 
 	function distributeEvenly(total: number) {
-		const base = Math.floor(total / 3);
-		const remainder = total % 3;
-		distribution = { '100': base + (remainder > 0 ? 1 : 0), '200': base + (remainder > 1 ? 1 : 0), '300': base };
+		const base = Math.floor(total / 5);
+		const remainder = total % 5;
+		distribution = Object.fromEntries(
+			Array.from({ length: 5 }, (_, index) => [String(index + 1), base + (index < remainder ? 1 : 0)]),
+		);
 	}
 
 	function validate() {
@@ -55,7 +59,8 @@
 			formError = 'La grille doit conserver au moins une case jouable.';
 			return false;
 		}
-		distributionError = distributedCells === playableCells ? '' : `Répartissez exactement ${playableCells} cases jouables (actuellement ${distributedCells}).`;
+		distributionError = remainingCells > 0 ? `Il reste ${remainingCells} cases à attribuer.` : remainingCells < 0 ? `Vous avez attribué ${Math.abs(remainingCells)} cases de trop.` : '';
+		if (!distributionError && totalPoints !== 100) distributionError = `Le maximum possible doit être de 100 points (actuellement ${totalPoints}).`;
 		return !distributionError;
 	}
 
@@ -100,7 +105,7 @@
 		<p class="intro">Les coordonnées sont générées automatiquement : <strong>{rowPreview}</strong> et <strong>{columnPreview}</strong>.</p>
 		<form onsubmit={(event) => { event.preventDefault(); void save(); }}>
 			<div class="dimensions"><label for="grid-rows">Lignes<input id="grid-rows" type="number" min="1" max="99" bind:value={rows} disabled={isSaving} onblur={validate} /></label><label for="grid-columns">Colonnes<input id="grid-columns" type="number" min="1" max="99" bind:value={columns} disabled={isSaving} onblur={validate} /></label><label for="grid-empty">Cases vides<input id="grid-empty" type="number" min="0" max={Math.max(0, cellCount - 1)} bind:value={emptyCellCount} disabled={isSaving} onblur={validate} /></label></div>
-			<section class="distribution" aria-labelledby="points-title"><div><h3 id="points-title">Répartition des points</h3><p>{playableCells} cases jouables à distribuer.</p></div><div class="point-inputs">{#each ['100', '200', '300'] as points}<label for={`points-${points}`}><span>{points} pts</span><input id={`points-${points}`} type="number" min="0" bind:value={distribution[points]} disabled={isSaving} onblur={validate} /></label>{/each}</div>{#if distributionError}<p class="field-error" role="alert">{distributionError}</p>{/if}</section>
+			<section class="distribution" aria-labelledby="points-title"><div><h3 id="points-title">Répartition par points</h3><p><strong>{distributedCells} / {playableCells} cases attribuées</strong> · maximum : <strong>{totalPoints} / 100 points</strong>.</p></div><div class="point-inputs">{#each ['1', '2', '3', '4', '5'] as points}<label for={`points-${points}`}><span>{points} pts</span><input id={`points-${points}`} type="number" min="0" bind:value={distribution[points]} disabled={isSaving} onblur={validate} /></label>{/each}</div>{#if distributionError}<p class="field-error" role="alert">{distributionError}</p>{/if}</section>
 			{#if formError}<p class="form-error" role="alert">{formError}</p>{/if}
 			<div class="actions"><button class="cancel" type="button" disabled={isSaving} onclick={onclose}>Annuler</button><button class="submit" type="submit" disabled={isSaving}>{isSaving ? 'Enregistrement…' : 'Enregistrer la grille'}</button></div>
 		</form>

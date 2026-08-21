@@ -36,6 +36,7 @@ export type Participant = {
 };
 
 export type Question = { id: string; question: string; level: number; tags: string[]; is_active: boolean };
+export type QueryConfig = { id: string; join: 'and' | 'or'; mode: 'select' | 'unselect'; tags: string[] | null; level: number[] | null };
 
 export type PaginatedEpisodes = {
 	count: number;
@@ -146,7 +147,27 @@ export function updateParticipant(episodeId: string, participantId: string, payl
 	}, 'Impossible de mettre à jour ce participant.');
 }
 
-export function getQuestions() { return request<Question[]>('/api/qa/questions/', {}, 'Impossible de charger les questions.'); }
+export async function getQuestions() {
+	const response = await request<Question[] | PaginatedQuestions>('/api/qa/questions/', {}, 'Impossible de charger les questions.');
+	return Array.isArray(response) ? response : response.results;
+}
+
+export type QuestionImportResult = { imported_questions: number; reused_propositions: number; skipped_questions: string[] };
+
+export function importQuestions(file: File) {
+	const formData = new FormData();
+	formData.append('file', file);
+	return request<QuestionImportResult>('/api/qa/questions/import/', { method: 'POST', body: formData }, 'Impossible d’importer ce fichier.');
+}
+
+type PaginatedQuestions = { count: number; next: string | null; previous: string | null; results: Question[] };
+
+export function getQuestionPage(parameters: URLSearchParams) {
+	return request<PaginatedQuestions>(`/api/qa/questions/?${parameters.toString()}`, {}, 'Impossible de charger les questions.');
+}
+export function getQueryConfigs(episodeId: string) { return request<QueryConfig[]>(`/api/episodes/${episodeId}/query-configs/`, {}, 'Impossible de charger les règles.'); }
+export function createQueryConfig(episodeId: string, payload: Omit<QueryConfig, 'id'>) { return request<QueryConfig>(`/api/episodes/${episodeId}/query-configs/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }, 'Impossible d’ajouter cette règle.'); }
+export async function deleteQueryConfig(episodeId: string, id: string) { await request<void>(`/api/episodes/${episodeId}/query-configs/${id}/`, { method: 'DELETE' }, 'Impossible de supprimer cette règle.'); }
 
 export function episodeStateLabel(state: EpisodeState) {
 	return { pending: 'À préparer', start: 'En cours', end: 'Terminé' }[state];

@@ -1,0 +1,1190 @@
+questions:
+- answers:
+  - answer: Dimbokro
+    is_correct: true
+  - answer: Abengourou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Adiaké
+    is_correct: false
+  - answer: Bonoua
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Soubré
+    is_correct: false
+  - answer: Sinfra
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district des Lacs ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Abengourou
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district de la Comoé ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Odienné
+    is_correct: true
+  - answer: Korhogo
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Sinfra
+    is_correct: false
+  - answer: Daloa
+    is_correct: false
+  - answer: Séguéla
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district du Denguélé ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Gagnoa
+    is_correct: true
+  - answer: Daloa
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district du Gôh-Djiboua ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Dabou
+    is_correct: true
+  - answer: Daloa
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: San-Pédro
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district des Lagunes ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Man
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Abengourou
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district des Montagnes ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Daloa
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district de Sassandra-Marahoué ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Korhogo
+    is_correct: true
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Abengourou
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district des Savanes ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: San-Pédro
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Adiaké
+    is_correct: false
+  - answer: Grand-Bassam
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district du Bas-Sassandra ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Bouaké
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district la Vallée du Bandama ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Séguéla
+    is_correct: true
+  - answer: Daloa
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Transua
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de district du Woroba ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Bondoukou
+    is_correct: true
+  - answer: Daloa
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Transua
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu du district du Zanzan ?
+  tags: domain:geography; country:ci; meta:city; meta:district
+- answers:
+  - answer: Dimbokro
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Aboisso
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du N'zi ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Daoukro
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région de l'Iffou ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Toumodi
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Bélier ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Bongouanou
+    is_correct: true
+  - answer: Daloa
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Transua
+    is_correct: false
+  - answer: Aboisso
+    is_correct: false
+  - answer: Minignan
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Moronou ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Abengourou
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région de l'Indénié-Djuablin ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Aboisso
+    is_correct: true
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Abengourou
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Grand-Bassam
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Sud-Comoé ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Minignan
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Folon?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Odienné
+    is_correct: true
+  - answer: Abengourou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Adiaké
+    is_correct: false
+  - answer: Bonoua
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Guiglo
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Kabadougou ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Gagnoa
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Guiglo
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Gôh?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Divo
+    is_correct: true
+  - answer: Daloa
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Transua
+    is_correct: false
+  - answer: Fresco
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Lôh-Djiboua ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Agboville
+    is_correct: true
+  - answer: Daloa
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Transua
+    is_correct: false
+  - answer: Fresco
+    is_correct: false
+  - answer: Touba
+    is_correct: false
+  - answer: Duékoué
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région de l'Agnéby-Tiassa ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Adzopé
+    is_correct: true
+  - answer: Abengourou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Adiaké
+    is_correct: false
+  - answer: Bonoua
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Guiglo
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région de la Mé ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Dabou
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région des Grands Ponts ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Man
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Daloa
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Tonkpi ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Guiglo
+    is_correct: true
+  - answer: Daloa
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Transua
+    is_correct: false
+  - answer: Fresco
+    is_correct: false
+  - answer: Touba
+    is_correct: false
+  - answer: Duékoué
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Cavaly  ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Duékoué
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Guémon ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Daloa
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Assinie
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Haut-Sassandra ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Bouaflé
+    is_correct: true
+  - answer: Abengourou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Adiaké
+    is_correct: false
+  - answer: Bonoua
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Guiglo
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région de la Marahoué ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Korhogo
+    is_correct: true
+  - answer: Abengourou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Adiaké
+    is_correct: false
+  - answer: Bonoua
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Guiglo
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Tiébissou
+    is_correct: false
+  - answer: Fresco
+    is_correct: false
+  - answer: Odienné
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Poro?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Ferkessédougou
+    is_correct: true
+  - answer: Abengourou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Adiaké
+    is_correct: false
+  - answer: Bonoua
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Daloa
+    is_correct: false
+  - answer: Guiglo
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Tchologo?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Boundiali
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Assinie
+    is_correct: false
+  - answer: Soubré
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Bagoué?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Soubré
+    is_correct: true
+  - answer: Abengourou
+    is_correct: false
+  - answer: Tiassalé
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Adiaké
+    is_correct: false
+  - answer: Bonoua
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Guiglo
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Tiébissou
+    is_correct: false
+  - answer: Fresco
+    is_correct: false
+  - answer: Odienné
+    is_correct: false
+  - answer: Fresco
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  level: '2'
+  question: Quel est le chef-lieu de région du Nawa ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: San-Pédro
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Assinie
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région de San-Pédro ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Sassandra
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Assinie
+    is_correct: false
+  - answer: Soubré
+    is_correct: false
+  - answer: Boundiali
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Gbôklé ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Katiola
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Assinie
+    is_correct: false
+  - answer: Soubré
+    is_correct: false
+  - answer: Boundiali
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Hambol ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Bouaké
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Gbêkê?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Mankono
+    is_correct: true
+  - answer: Daloa
+    is_correct: false
+  - answer: Tingréla
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  - answer: Dabou
+    is_correct: false
+  - answer: Bouaké
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Man
+    is_correct: false
+  - answer: Katiola
+    is_correct: false
+  - answer: Transua
+    is_correct: false
+  - answer: Fresco
+    is_correct: false
+  - answer: Touba
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  level: '2'
+  question: Quel est le chef-lieu de région du Béré ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Touba
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Sinfra
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Bafing ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Séguéla
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Assinie
+    is_correct: false
+  - answer: Soubré
+    is_correct: false
+  - answer: Boundiali
+    is_correct: false
+  - answer: Bouna
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Worodougou ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Bouna
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Assinie
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Bounkani ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+- answers:
+  - answer: Bondoukou
+    is_correct: true
+  - answer: Agnibilékrou
+    is_correct: false
+  - answer: Koun-fao
+    is_correct: false
+  - answer: Adzopé
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bouaflé
+    is_correct: false
+  - answer: Dimbokro
+    is_correct: false
+  - answer: Gagnoa
+    is_correct: false
+  - answer: 'Séguéla: Odienné'
+    is_correct: false
+  - answer: Daoukro
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Akoupé
+    is_correct: false
+  - answer: Tanda
+    is_correct: false
+  - answer: Assinie
+    is_correct: false
+  - answer: Transua
+    is_correct: false
+  - answer: Soubré
+    is_correct: false
+  - answer: Abengourou
+    is_correct: false
+  level: '1'
+  question: Quel est le chef-lieu de région du Gontougo ?
+  tags: domain:geography; country:ci; meta:city; meta:region
+

@@ -1,0 +1,2262 @@
+questions:
+- answers:
+  - answer: Yamoussoukrou
+    is_correct: true
+  - answer: Abidjan
+    is_correct: false
+  - answer: Grand Bassam
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: San pedro
+    is_correct: false
+  level: '1'
+  question: Quelle est la capitale politique de la Côte d'Ivoire ?
+  tags: domain:politic; domain:geography; country:ci; meta:city
+- answers:
+  - answer: Abidjan
+    is_correct: true
+  - answer: Yamoussoukrou
+    is_correct: false
+  - answer: Grand Bassam
+    is_correct: false
+  - answer: Bingerville
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: San pedro
+    is_correct: false
+  level: '1'
+  question: Quelle est la capitale économique de la Côte d'Ivoire ?
+  tags: domain:politic; domain:geography; country:ci; meta:city
+- answers:
+  - answer: 322462 km2
+    is_correct: true
+  - answer: 430303 km2
+    is_correct: false
+  - answer: 342355 km2
+    is_correct: false
+  - answer: 324554 km2
+    is_correct: false
+  - answer: 333000 km2
+    is_correct: false
+  - answer: 320445 km2
+    is_correct: false
+  level: '1'
+  question: Quelle est la superficie de la Côte d'Ivoire ?
+  tags: domain:geography; country:ci
+- answers:
+  - answer: Union - Discipline - Travail
+    is_correct: true
+  - answer: Union - Justice - Travail
+    is_correct: false
+  - answer: Union - Discipline - Fraternité
+    is_correct: false
+  - answer: Travail - Dialogue - Justice
+    is_correct: false
+  - answer: Paix - Discipline - Travail
+    is_correct: false
+  - answer: Paix - Amour - Travail
+    is_correct: false
+  - answer: Liberté - Egalité - Justice
+    is_correct: false
+  - answer: Liberté - Egalité - Fraternité
+    is_correct: false
+  level: '1'
+  question: Quelle est la devise de la Côte d'Ivoire ?
+  tags: domain:politic; domain:history; country:ci
+- answers:
+  - answer: F CFA
+    is_correct: true
+  - answer: Euro
+    is_correct: false
+  - answer: Naira
+    is_correct: false
+  - answer: Cedis
+    is_correct: false
+  - answer: Won
+    is_correct: false
+  - answer: Dong
+    is_correct: false
+  level: '1'
+  question: Quelle est la monnaie de la Côte d'Ivoire ?
+  tags: domain:economy; country:ci
+- answers:
+  - answer: Libéria, Ghana
+    is_correct: true
+  - answer: Mali, Libéria
+    is_correct: false
+  - answer: Guinée, Mali
+    is_correct: false
+  - answer: Ghana, Burkina Faso
+    is_correct: false
+  - answer: Ghana, Mali
+    is_correct: false
+  - answer: Ghana, Guinée
+    is_correct: false
+  - answer: Libéria, Guinée
+    is_correct: false
+  level: '1'
+  question: Quels sont les pays anglophones frontaliers de la Côte d'Ivoire ?
+  tags: domain:geography; country:ci
+- answers:
+  - answer: Guinée, Mali, Burkina Faso
+    is_correct: true
+  - answer: Mali, Ghana, Guinée
+    is_correct: false
+  - answer: Libéria, Ghana, Guinée
+    is_correct: false
+  - answer: 'Mali, Ghana,
+
+      Libéria'
+    is_correct: false
+  - answer: Mali, Guinée, Libéria
+    is_correct: false
+  - answer: Burkina Faso, Ghana, Guinée
+    is_correct: false
+  level: '1'
+  question: Quels sont les pays francophones frontaliers de la Côte d'Ivoire ?
+  tags: domain:geography; country:ci
+- answers:
+  - answer: '1960'
+    is_correct: true
+  - answer: '1956'
+    is_correct: false
+  - answer: '1969'
+    is_correct: false
+  - answer: '1961'
+    is_correct: false
+  - answer: '1993'
+    is_correct: false
+  - answer: '1965'
+    is_correct: false
+  level: '1'
+  question: En quelle année la Côte d'Ivoire obtient-elle son indépendance ?
+  tags: domain:history; country:ci
+- answers:
+  - answer: Le Bandama
+    is_correct: true
+  - answer: La Comoé
+    is_correct: false
+  - answer: Le Sassandra
+    is_correct: false
+  - answer: Le Cavaly
+    is_correct: false
+  level: '1'
+  question: Quel est le plus long fleuve de la Côte d'Ivoire ?
+  tags: domain:geography; country:ci
+- answers:
+  - answer: Les Elephants
+    is_correct: true
+  - answer: Les Tigres
+    is_correct: false
+  - answer: Les Eperviers
+    is_correct: false
+  - answer: Les Coqs
+    is_correct: false
+  - answer: Les Lions
+    is_correct: false
+  - answer: Les Abeilles
+    is_correct: false
+  level: '1'
+  question: Quel est le surnom de l'équipe nationale de football de Côte d'ivoire ?
+  tags: domain:sport; country:ci
+- answers:
+  - answer: '1893'
+    is_correct: true
+  - answer: '1960'
+    is_correct: false
+  - answer: '1769'
+    is_correct: false
+  - answer: '1890'
+    is_correct: false
+  - answer: '1900'
+    is_correct: false
+  - answer: '1880'
+    is_correct: false
+  level: '1'
+  question: Quand la Côte d'Ivoire est-elle devenue une colonie française ?
+  tags: domain:politic; domain:history; country:ci
+- answers:
+  - answer: Reine Pokou
+    is_correct: true
+  - answer: Reine Akoua
+    is_correct: false
+  - answer: Reine Yamoussou
+    is_correct: false
+  - answer: Reine Abenan
+    is_correct: false
+  - answer: Reine Kossia
+    is_correct: false
+  - answer: Reine Krah
+    is_correct: false
+  - answer: Reine Yeboua
+    is_correct: false
+  level: '1'
+  question: Quelle reine baoulé a dû sacrifier son fils pour sauver son peuple ?
+  tags: domain:history; country:ci; meta:legend; meta:woman
+- answers:
+  - answer: L'Abidjanaise
+    is_correct: true
+  - answer: L’Ivoirienne
+    is_correct: false
+  - answer: L’Éléphantine
+    is_correct: false
+  - answer: La Marseillaise
+    is_correct: false
+  - answer: Ode à la patrie
+    is_correct: false
+  - answer: La Paysanne
+    is_correct: false
+  level: '1'
+  question: Quel est le nom de l’hymne national de la Côte d'Ivoire ?
+  tags: domain:politic; country:ci
+- answers:
+  - answer: Bernard Binlin Dadié
+    is_correct: true
+  - answer: Ahmadou Kourouma
+    is_correct: false
+  - answer: Jean-Marie Adiaffi
+    is_correct: false
+  - answer: Isaie Biton Koulibaly
+    is_correct: false
+  - answer: Armand Patrick Gbaka-Brédé
+    is_correct: false
+  - answer: Tirbuce Koffi
+    is_correct: false
+  level: '1'
+  question: Qui est l’auteur du premier roman ivoirien ?
+  tags: domain:literature; country:ci
+- answers:
+  - answer: Afrique
+    is_correct: true
+  - answer: Europe
+    is_correct: false
+  - answer: Asie
+    is_correct: false
+  - answer: Amérique
+    is_correct: false
+  - answer: Océanie
+    is_correct: false
+  level: '1'
+  question: De quel continent la Côte d'ivoire fait parti ?
+  tags: domain:geography; country:ci
+- answers:
+  - answer: '1948'
+    is_correct: true
+  - answer: '1945'
+    is_correct: false
+  - answer: '1961'
+    is_correct: false
+  - answer: '1947'
+    is_correct: false
+  - answer: '1955'
+    is_correct: false
+  - answer: '1961'
+    is_correct: false
+  level: '2'
+  question: En quelle année née le club ASEC Mimosas ?
+  tags: domain:sport; meta:football; country:ci
+- answers:
+  - answer: '1947'
+    is_correct: true
+  - answer: '1948'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '1956'
+    is_correct: false
+  - answer: '1950'
+    is_correct: false
+  - answer: '1962'
+    is_correct: false
+  level: '2'
+  question: En quelle année née le club Africa Sports ?
+  tags: domain:sport; meta:football; country:ci
+- answers:
+  - answer: Jaune et Noir
+    is_correct: true
+  - answer: Vert et Rouge
+    is_correct: false
+  - answer: Noir et Blanc
+    is_correct: false
+  - answer: Jaune et Rouge
+    is_correct: false
+  - answer: Bleu et Rouge
+    is_correct: false
+  level: '1'
+  question: Quelles sont les couleurs du club ASEC Mimosas ?
+  tags: domain:sport; meta:football; country:ci
+- answers:
+  - answer: Vert et Rouge
+    is_correct: true
+  - answer: Jaune et Noir
+    is_correct: false
+  - answer: Blanc et Vert
+    is_correct: false
+  - answer: Rouge et Noir
+    is_correct: false
+  - answer: Jaune et Bleu
+    is_correct: false
+  level: '1'
+  question: Quelles sont les couleurs du club Africa Sports ?
+  tags: domain:sport; meta:football; country:ci
+- answers:
+  - answer: Amadou Koné
+    is_correct: true
+  - answer: Armand Patrick Gbaka-Brédé
+    is_correct: false
+  - answer: Félix Houphouet Boigny
+    is_correct: false
+  - answer: Bernard B. Dadié
+    is_correct: false
+  - answer: Véronique Tadjo
+    is_correct: false
+  - answer: Charles Nokan
+    is_correct: false
+  - answer: Aké Loba
+    is_correct: false
+  - answer: Zacharie Séry Bailly
+    is_correct: false
+  level: '1'
+  question: Qui est l'auteur du roman Les frasques d'Ebinto ?
+  tags: domain:literature; country:ci
+- answers:
+  - answer: Félix Houphouet Boigny
+    is_correct: true
+  - answer: Laurent Gbagbo
+    is_correct: false
+  - answer: Alassane Ouattara
+    is_correct: false
+  - answer: Sékou Touré
+    is_correct: false
+  - answer: Henry Konan Bédié
+    is_correct: false
+  - answer: Robert Guéï
+    is_correct: false
+  - answer: Blaise Compaoré
+    is_correct: false
+  - answer: Samory Touré
+    is_correct: false
+  level: '1'
+  question: Qui est le premier président de la Côte d'Ivoire ?
+  tags: domain:politic; domain:history; country:ci
+- answers:
+  - answer: '1946'
+    is_correct: true
+  - answer: '1950'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '1961'
+    is_correct: false
+  - answer: '1945'
+    is_correct: false
+  - answer: '1956'
+    is_correct: false
+  - answer: '1980'
+    is_correct: false
+  level: '2'
+  question: En quelle année est aboli le travail forcé en Côte d'Ivoire ?
+  tags: domain:politic; domain:history; country:ci
+- answers:
+  - answer: '1993'
+    is_correct: true
+  - answer: '1990'
+    is_correct: false
+  - answer: '2000'
+    is_correct: false
+  - answer: '1991'
+    is_correct: false
+  - answer: '1994'
+    is_correct: false
+  - answer: '1995'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  level: '1'
+  question: En quelle année meurt le 1er président ivoirien ?
+  tags: domain:politic; domain:history; country:ci
+- answers:
+  - answer: '1904'
+    is_correct: true
+  - answer: '1900'
+    is_correct: false
+  - answer: '1910'
+    is_correct: false
+  - answer: '1930'
+    is_correct: false
+  - answer: '1940'
+    is_correct: false
+  - answer: '1905'
+    is_correct: false
+  - answer: '1901'
+    is_correct: false
+  level: '2'
+  question: En quelle année la Côte d'Ivoire devient un département de l'Afrique-Occidentale française ?
+  tags: domain:politic; domain:history; country:ci
+- answers:
+  - answer: '1956'
+    is_correct: true
+  - answer: '1900'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '1950'
+    is_correct: false
+  - answer: '1910'
+    is_correct: false
+  - answer: '1945'
+    is_correct: false
+  - answer: '1948'
+    is_correct: false
+  level: '3'
+  question: En quelle année la Côte d'Ivoire devient un térritoire français d'outre-mer ?
+  tags: domain:politic; domain:history; country:ci
+- answers:
+  - answer: '1983'
+    is_correct: true
+  - answer: '1980'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '1990'
+    is_correct: false
+  - answer: '1986'
+    is_correct: false
+  - answer: '2000'
+    is_correct: false
+  - answer: '2010'
+    is_correct: false
+  level: '2'
+  question: En quelle année Yamoussoukro est fait capitale politique de la Côte d'Ivoire ?
+  tags: domain:politic; domain:history; country:ci
+- answers:
+  - answer: '1990'
+    is_correct: true
+  - answer: '1980'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '2000'
+    is_correct: false
+  - answer: '2010'
+    is_correct: false
+  - answer: '1993'
+    is_correct: false
+  - answer: '1995'
+    is_correct: false
+  level: '2'
+  question: En quelle année la Côte d'Ivoire accède au multipartisme ?
+  tags: domain:politic; domain:history; country:ci
+- answers:
+  - answer: '1910'
+    is_correct: true
+  - answer: '1900'
+    is_correct: false
+  - answer: '1893'
+    is_correct: false
+  - answer: '1980'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '1950'
+    is_correct: false
+  - answer: '1955'
+    is_correct: false
+  level: '3'
+  question: En quelle année le Cacao est introduit en Côte d'Ivoire ?
+  tags: domain:history; domain:agriculture; country:ci
+- answers:
+  - answer: Côte d'Ivoire
+    is_correct: true
+  - answer: Ghana
+    is_correct: false
+  - answer: Mali
+    is_correct: false
+  - answer: Burkina Faso
+    is_correct: false
+  - answer: Togo
+    is_correct: false
+  - answer: Nigéria
+    is_correct: false
+  - answer: Bénin
+    is_correct: false
+  level: '1'
+  question: Qui est le premier producteur mondiale de cacao ?
+  tags: domain:economy; domain:agriculture; country:ci
+- answers:
+  - answer: Ghana
+    is_correct: true
+  - answer: Mali
+    is_correct: false
+  - answer: Guinée
+    is_correct: false
+  - answer: Togo
+    is_correct: false
+  - answer: Libéria
+    is_correct: false
+  - answer: Burkina Faso
+    is_correct: false
+  level: '1'
+  question: Quel pays fait frontière avec la Côte d'Ivoire à l'est ?
+  tags: domain:geography; country:ci
+- answers:
+  - answer: Elima
+    is_correct: true
+  - answer: Bingerville
+    is_correct: false
+  - answer: Grand Bassam
+    is_correct: false
+  - answer: Bondoukou
+    is_correct: false
+  - answer: Aboisso
+    is_correct: false
+  - answer: Adiaké
+    is_correct: false
+  level: '2'
+  question: Où a été créée la première école officielle française de la Côte d'Ivoire ?
+  tags: domain:history; domain:education; country:ci
+- answers:
+  - answer: Mont Nimba
+    is_correct: true
+  - answer: Mont Tonkoui
+    is_correct: false
+  - answer: Mont Loura
+    is_correct: false
+  - answer: Mont Gangan
+    is_correct: false
+  - answer: Mont Korogho
+    is_correct: false
+  - answer: Mont Zo
+    is_correct: false
+  - answer: Mont Nienokoue
+    is_correct: false
+  level: '1'
+  question: Quel est le plus haut sommet de la Côte d'Ivoire ?
+  tags: domain:geography; country:ci; domain:tourism
+- answers:
+  - answer: Un éléphant
+    is_correct: true
+  - answer: Un coq
+    is_correct: false
+  - answer: Un lion
+    is_correct: false
+  - answer: Un aigle
+    is_correct: false
+  - answer: Un serpent
+    is_correct: false
+  - answer: Un tigre
+    is_correct: false
+  - answer: Un singe
+    is_correct: false
+  - answer: Un crocodile
+    is_correct: false
+  level: '1'
+  question: Quel animal est représenté sur les armoiries de la Côte d'Ivoire ?
+  tags: country:ci; domain:politic
+- answers:
+  - answer: Armand Patrick Gbaka-Brédé
+    is_correct: true
+  - answer: Paul Ahizi
+    is_correct: false
+  - answer: Séry Bailly
+    is_correct: false
+  - answer: Maurice Bandaman
+    is_correct: false
+  - answer: Pierre Kipré
+    is_correct: false
+  - answer: Aké Loba
+    is_correct: false
+  - answer: Isaïe Biton Koulibaly
+    is_correct: false
+  level: '2'
+  question: Qui est l'auteur du roman "Debout-Payé" ?
+  tags: domain:literature; country:ci
+- answers:
+  - answer: Armand Patrick Gbaka-Brédé
+    is_correct: true
+  - answer: Adjoua Flore Kouamé
+    is_correct: false
+  - answer: Maurice Bandama
+    is_correct: false
+  - answer: Pierre Kipré
+    is_correct: false
+  - answer: Venance Konan
+    is_correct: false
+  - answer: Michelle Lora
+    is_correct: false
+  level: '2'
+  question: Qui est l'auteur du roman "Camarade Papa" ?
+  tags: domain:literature; country:ci
+- answers:
+  - answer: Franc des Colonies Françaises d'Afrique
+    is_correct: true
+  - answer: Franc des Colonies d'Afrique
+    is_correct: false
+  - answer: Franc des Colons d'Afrique
+    is_correct: false
+  - answer: Franc des Colonies Africaine
+    is_correct: false
+  - answer: France Colonies Afrique
+    is_correct: false
+  level: '1'
+  question: A l'origine, que signifiait CFA dans franc CFA ?
+  tags: domain:history; country:ci; domain:economy
+- answers:
+  - answer: Pierre Fakhoury
+    is_correct: true
+  - answer: Christian Lattier
+    is_correct: false
+  - answer: Issa Diabaté
+    is_correct: false
+  - answer: Guillaume Koffi
+    is_correct: false
+  - answer: Mélissa Kacoutié
+    is_correct: false
+  - answer: Paul Andreu
+    is_correct: false
+  - answer: Jean-Marie Charpentier
+    is_correct: false
+  - answer: Manuelle Gautrand
+    is_correct: false
+  - answer: Dominique Perrault
+    is_correct: false
+  level: '2'
+  question: Qui est l'architecte de la basilique Notre Dame de la Paix de Yamoussoukro ?
+  tags: domain:monuments; country:ci; domain:personality
+- answers:
+  - answer: '1990'
+    is_correct: true
+  - answer: '1989'
+    is_correct: false
+  - answer: '1970'
+    is_correct: false
+  - answer: '1993'
+    is_correct: false
+  - answer: '1991'
+    is_correct: false
+  - answer: '1988'
+    is_correct: false
+  - answer: '1986'
+    is_correct: false
+  - answer: '1992'
+    is_correct: false
+  - answer: '1995'
+    is_correct: false
+  level: '1'
+  question: En quelle année est inaugurée la basilique Notre Dame de la Paix de Yamoussoukro ?
+  tags: domain:monuments; country:ci
+- answers:
+  - answer: Simone Kaya
+    is_correct: true
+  - answer: Josette Abondio
+    is_correct: false
+  - answer: Simone Ehivet Gbagbo
+    is_correct: false
+  - answer: Anne-Marie Adiaffi
+    is_correct: false
+  - answer: Suzanne Tanella Boni
+    is_correct: false
+  - answer: Isabelle Boni-Claverie
+    is_correct: false
+  level: '3'
+  question: Qui est la première écrivaine de Côte d'Ivoire ?
+  tags: domain:history; country:ci; domain:literature; meta:woman
+- answers:
+  - answer: Simone Kaya
+    is_correct: true
+  - answer: Kaba Nialé
+    is_correct: false
+  - answer: Marie Koré
+    is_correct: false
+  - answer: Hortense Aka Anghui
+    is_correct: false
+  - answer: Kandia Camara
+    is_correct: false
+  - answer: Odette Yacé
+    is_correct: false
+  - answer: Ramata Ly-Bakayoko
+    is_correct: false
+  level: '3'
+  question: Qui est la première infirmière d'Etat de Côte d'Ivoire ?
+  tags: domain:history; country:ci; domain:health; meta:woman
+- answers:
+  - answer: '1945'
+    is_correct: true
+  - answer: '1900'
+    is_correct: false
+  - answer: '1893'
+    is_correct: false
+  - answer: '1950'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '1940'
+    is_correct: false
+  - answer: '1959'
+    is_correct: false
+  - answer: '1970'
+    is_correct: false
+  level: '2'
+  question: En quelle année née le Franc CFA ?
+  tags: domain:history; country:ci; domain:economy
+- answers:
+  - answer: Le Bélier
+    is_correct: true
+  - answer: Le Coq
+    is_correct: false
+  - answer: Le Lion
+    is_correct: false
+  - answer: Le Crocodile
+    is_correct: false
+  - answer: L'Elephant
+    is_correct: false
+  - answer: Le Pigeon
+    is_correct: false
+  - answer: Le Corbeau
+    is_correct: false
+  - answer: Le Renard
+    is_correct: false
+  - answer: L'Hibout
+    is_correct: false
+  level: '1'
+  question: Quel etait l'animal totem du 1er président ivoirien ?
+  tags: domain:history; country:ci
+- answers:
+  - answer: Jeanne Gervais
+    is_correct: true
+  - answer: Hortense Aka Anghui
+    is_correct: false
+  - answer: Anne Marie Raggi
+    is_correct: false
+  - answer: Marie Koré
+    is_correct: false
+  - answer: Marguerite Sacoum
+    is_correct: false
+  - answer: Odette Yacé
+    is_correct: false
+  - answer: Mariatou Koné
+    is_correct: false
+  - answer: Kaba Nialé
+    is_correct: false
+  - answer: Kandia Camara
+    is_correct: false
+  level: '2'
+  question: Qui est la 1ère femme ministre de Côte d'Ivoire ?
+  tags: domain:history; country:ci; domain:politic
+- answers:
+  - answer: '1912'
+    is_correct: true
+  - answer: '1905'
+    is_correct: false
+  - answer: '1900'
+    is_correct: false
+  - answer: '1980'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '1970'
+    is_correct: false
+  - answer: '1910'
+    is_correct: false
+  level: '2'
+  question: Quelle est l'année de naissance de Marie Koré ?
+  tags: domain:history; country:ci; meta:woman
+- answers:
+  - answer: Ramata Ly-Bakayoko
+    is_correct: true
+  - answer: Kaba Nialé
+    is_correct: false
+  - answer: Mariatou Koné
+    is_correct: false
+  - answer: Kandia Camara
+    is_correct: false
+  - answer: Hortense Aka Anghui
+    is_correct: false
+  - answer: Jacqueline Oble
+    is_correct: false
+  level: '3'
+  question: Qui est la première Ivoirienne admise à l’Académie des sciences d’outre-mer de Paris?
+  tags: domain:history; country:ci; meta:woman
+- answers:
+  - answer: Libéria
+    is_correct: true
+  - answer: Guinée
+    is_correct: false
+  - answer: Sierra-Léone
+    is_correct: false
+  - answer: Nigéria
+    is_correct: false
+  - answer: Ghana
+    is_correct: false
+  - answer: Mali
+    is_correct: false
+  level: '1'
+  question: Quel est le pays anglophone située à l'ouest de la Côte d'Ivoire ?
+  tags: domain:geography; country:ci
+- answers:
+  - answer: Un bug informatique
+    is_correct: true
+  - answer: La fin du monde
+    is_correct: false
+  - answer: Un krach boursier
+    is_correct: false
+  - answer: Des innondations
+    is_correct: false
+  - answer: Des éruptions volcanique
+    is_correct: false
+  level: '1'
+  question: Que craignait-on lors du passage à l'an 2000 ?
+  tags: domain:technology; meta:2000; meta:bug
+- answers:
+  - answer: Al-Qaeda
+    is_correct: true
+  - answer: Boko Haram
+    is_correct: false
+  - answer: Daech
+    is_correct: false
+  - answer: Ansar al-Islam
+    is_correct: false
+  - answer: Ansar Dine
+    is_correct: false
+  - answer: Front al-Nosra
+    is_correct: false
+  level: '1'
+  question: Quelle organisation terroriste est à l'origine des attentats du 11 Septembre ?
+  tags: domain:security; meta:terrorism; country:us
+- answers:
+  - answer: '2002'
+    is_correct: true
+  - answer: '1995'
+    is_correct: false
+  - answer: '2000'
+    is_correct: false
+  - answer: '1999'
+    is_correct: false
+  - answer: '1990'
+    is_correct: false
+  - answer: '2004'
+    is_correct: false
+  - answer: '2010'
+    is_correct: false
+  level: '2'
+  question: Quand l'euro est-il entré en vigueur ?
+  tags: domain:economy; meta:europe
+- answers:
+  - answer: Laurent Gbagbo
+    is_correct: true
+  - answer: Alassane Ouattara
+    is_correct: false
+  - answer: Félix Houphouët-Boigny
+    is_correct: false
+  - answer: Henri Konan Bedié
+    is_correct: false
+  level: '1'
+  question: Quel président ivoirien appelle la France à l'aide en 2002?
+  tags: domain:history; country:ci; domain:politic
+- answers:
+  - answer: La FINUL
+    is_correct: true
+  - answer: La MONUL
+    is_correct: false
+  - answer: La FORPRONU
+    is_correct: false
+  - answer: La FORPALI
+    is_correct: false
+  - answer: La FILIB
+    is_correct: false
+  - answer: La MINAULIB
+    is_correct: false
+  level: '2'
+  question: Comment se nomme la force des Nations unies au Liban ?
+  tags: domain:security; org:onu; country:lb
+- answers:
+  - answer: Mach 2
+    is_correct: true
+  - answer: Mach 1.5
+    is_correct: false
+  - answer: Mach 3
+    is_correct: false
+  - answer: Mach 4
+    is_correct: false
+  - answer: Mach 2.5
+    is_correct: false
+  level: '2'
+  question: 'Le Concorde, avion supersonique pouvait voler à:'
+  tags: domain:technology; meta:plane; country:fr
+- answers:
+  - answer: 1 à 2%
+    is_correct: true
+  - answer: 5 à 10%
+    is_correct: false
+  - answer: 35 à 40%
+    is_correct: false
+  - answer: 50 à 70%
+    is_correct: false
+  - answer: 3 à 4%
+    is_correct: false
+  - answer: 15 à 20%
+    is_correct: false
+  level: '2'
+  question: Quel pourcentage de gènes nous distingue des primates ?
+  tags: domain:biology
+- answers:
+  - answer: Le Britanique Peter Higgs
+    is_correct: true
+  - answer: L'Américain Bernard Higgs
+    is_correct: false
+  - answer: Le Belge François Higgs
+    is_correct: false
+  - answer: Le Russe Sacha Higgs
+    is_correct: false
+  - answer: L'Allemand Rodolph Higgs
+    is_correct: false
+  level: '1'
+  question: A qui le boson de Higgs doit-il son nom ?
+  tags: domain:physics
+- answers:
+  - answer: Curiosity
+    is_correct: true
+  - answer: Opportunity
+    is_correct: false
+  - answer: Explority
+    is_correct: false
+  - answer: Serendipity
+    is_correct: false
+  - answer: Marsity
+    is_correct: false
+  - answer: Expedity
+    is_correct: false
+  - answer: Checkty
+    is_correct: false
+  level: '1'
+  question: Comment se nomme le robot ayant exploré Mars en 2012 ?
+  tags: domain:astronomy; meta:mars; org:nasa
+- answers:
+  - answer: '46'
+    is_correct: true
+  - answer: '26'
+    is_correct: false
+  - answer: '36'
+    is_correct: false
+  - answer: '56'
+    is_correct: false
+  - answer: '66'
+    is_correct: false
+  - answer: '76'
+    is_correct: false
+  - answer: '86'
+    is_correct: false
+  level: '2'
+  question: De combien de chromosomes se compose le génome humain ?
+  tags: domain:biology
+- answers:
+  - answer: De carbone
+    is_correct: true
+  - answer: De graphium
+    is_correct: false
+  - answer: De silicium
+    is_correct: false
+  - answer: De lithium
+    is_correct: false
+  - answer: De hélium
+    is_correct: false
+  - answer: De fluor
+    is_correct: false
+  - answer: De magnésium
+    is_correct: false
+  level: '2'
+  question: De quels atomes se compose le graphène ?
+  tags: domain:geology
+- answers:
+  - answer: Grâce au big data
+    is_correct: true
+  - answer: Grâce au big bug
+    is_correct: false
+  - answer: Grâce au big mama
+    is_correct: false
+  - answer: Grâce au big dad
+    is_correct: false
+  - answer: Grâce au big fast
+    is_correct: false
+  level: '1'
+  question: Comment l'IA alimente-t-elle ses algorithmes prédictifs ?
+  tags: domain:technology
+- answers:
+  - answer: '1995'
+    is_correct: true
+  - answer: '2000'
+    is_correct: false
+  - answer: '2005'
+    is_correct: false
+  - answer: '2010'
+    is_correct: false
+  - answer: '2015'
+    is_correct: false
+  - answer: '2020'
+    is_correct: false
+  level: '2'
+  question: En quelle année est frabriquée la première cellule synthétique ?
+  tags: domain:technology
+- answers:
+  - answer: Tchouri
+    is_correct: true
+  - answer: Halley
+    is_correct: false
+  - answer: Spoutnik
+    is_correct: false
+  - answer: Neowise
+    is_correct: false
+  - answer: Winter
+    is_correct: false
+  - answer: Oscar
+    is_correct: false
+  - answer: Philomen
+    is_correct: false
+  - answer: Cardian
+    is_correct: false
+  level: '2'
+  question: Sur quelle comète a atterri le robot Philae ?
+  tags: domain:astronomy
+- answers:
+  - answer: L'intrication quantique
+    is_correct: true
+  - answer: L'imbrication quantique
+    is_correct: false
+  - answer: L'interaction quantique
+    is_correct: false
+  - answer: L'intersection quantique
+    is_correct: false
+  - answer: L'intercession quantique
+    is_correct: false
+  - answer: L'interprêtation quantique
+    is_correct: false
+  - answer: L'inspection quantique
+    is_correct: false
+  level: '3'
+  question: Sur quelle propriété repose la téléportation des atomes ?
+  tags: domain:physics
+- answers:
+  - answer: Carburant issue de la biomasse
+    is_correct: true
+  - answer: Carburant écologique
+    is_correct: false
+  - answer: Carburant issue de la fermentation
+    is_correct: false
+  - answer: Carburant issue d'une combustion
+    is_correct: false
+  level: '2'
+  question: Qu'est ce qu'un bio-carburant ?
+  tags: domain:ecology
+- answers:
+  - answer: Les vertébrés
+    is_correct: true
+  - answer: Les insectes
+    is_correct: false
+  - answer: Les mammifères
+    is_correct: false
+  - answer: Les invertébrés
+    is_correct: false
+  level: '1'
+  question: 'Les zoonoses sont des maladies transmises à l''homme par:'
+  tags: domain:biology
+- answers:
+  - answer: Groupe d'expert intergouvernemental sur l'évolution du climat
+    is_correct: true
+  - answer: Groupement d'experts internationaux sur le climat
+    is_correct: false
+  - answer: Garantie d'indemnisation écologique des catastrophes
+    is_correct: false
+  - answer: Groupement international d'écologie comparée
+    is_correct: false
+  - answer: Groupement international d'étude climatique
+    is_correct: false
+  level: '1'
+  question: Qu'est ce que le GIEC ?
+  tags: domain:ecology
+- answers:
+  - answer: Le pergélisol
+    is_correct: true
+  - answer: La permaglace
+    is_correct: false
+  - answer: Le permaligel
+    is_correct: false
+  - answer: Le permasol
+    is_correct: false
+  - answer: Le permagel
+    is_correct: false
+  - answer: Le permaneige
+    is_correct: false
+  level: '2'
+  question: Comment s'appelle la couche de glace présente en permanence sur certains sols ?
+  tags: domain:ecology
+- answers:
+  - answer: Des pesticides
+    is_correct: true
+  - answer: Des substituts au tabac
+    is_correct: false
+  - answer: Des composants nanotechnologiques
+    is_correct: false
+  - answer: Des engrais
+    is_correct: false
+  - answer: Des parasites
+    is_correct: false
+  - answer: Des vers
+    is_correct: false
+  level: '2'
+  question: Que sont les néonicotinoïdes ?
+  tags: domain:ecology
+- answers:
+  - answer: Le colbat
+    is_correct: true
+  - answer: L'or
+    is_correct: false
+  - answer: Le cuivre
+    is_correct: false
+  - answer: Le bois
+    is_correct: false
+  level: '1'
+  question: Lequel de ces trois éléments est un métal rare ?
+  tags: domain:geology
+- answers:
+  - answer: Les hormones
+    is_correct: true
+  - answer: Le cerveau
+    is_correct: false
+  - answer: Le sang
+    is_correct: false
+  - answer: Les muscles
+    is_correct: false
+  - answer: La voix
+    is_correct: false
+  - answer: La vue
+    is_correct: false
+  level: '2'
+  question: 'Les perturbateurs endocriniens agissent sur:'
+  tags: domain:biology
+- answers:
+  - answer: Les trâces de l'impact d'une météorites
+    is_correct: true
+  - answer: Un problème astronomique
+    is_correct: false
+  - answer: Une étoile très pâle
+    is_correct: false
+  - answer: Un problème lunaire
+    is_correct: false
+  - answer: Une super-nova
+    is_correct: false
+  - answer: Une nouvelle lune
+    is_correct: false
+  level: '2'
+  question: Qu'est ce qu'un astroblème ?
+  tags: domain:astronomy
+- answers:
+  - answer: La symphonie de pierre
+    is_correct: true
+  - answer: La Dame de pierre
+    is_correct: false
+  - answer: Notre-Dame des pierres
+    is_correct: false
+  - answer: Harmonie de pierre
+    is_correct: false
+  - answer: Merveille de pierre
+    is_correct: false
+  level: '1'
+  question: Quelle est l'expression romantique utilisé par Victor Hugo pour décrire Notre-Dame de Paris ?
+  tags: domain:monuments; country:fr
+- answers:
+  - answer: Les Na'vis
+    is_correct: true
+  - answer: Les Mauis
+    is_correct: false
+  - answer: Les Meharis
+    is_correct: false
+  - answer: Les Méac
+    is_correct: false
+  - answer: Les Molost
+    is_correct: false
+  - answer: Les Ma'iis
+    is_correct: false
+  level: '2'
+  question: Dans le film Avatar, comment s'appellent les habitants de la planète Pandora ?
+  tags: domain:cinema
+- answers:
+  - answer: télé-crochet
+    is_correct: true
+  - answer: télé-concours
+    is_correct: false
+  - answer: télé-achat
+    is_correct: false
+  - answer: télé-chorale
+    is_correct: false
+  - answer: télé-gag
+    is_correct: false
+  level: '1'
+  question: 'The Voice est une émission de:'
+  tags: domain:tv-show
+- answers:
+  - answer: Chirugiens
+    is_correct: true
+  - answer: Ophtalmologues
+    is_correct: false
+  - answer: Gynécologues
+    is_correct: false
+  - answer: Orthophoniste
+    is_correct: false
+  - answer: Dentiste
+    is_correct: false
+  - answer: Orthoptiste
+    is_correct: false
+  level: '1'
+  question: Quelle est la spécialité des médecins héros de Grey's Anatomy ?
+  tags: domain:cinema
+- answers:
+  - answer: Le trône de fer
+    is_correct: true
+  - answer: Le trône de guerre
+    is_correct: false
+  - answer: Le trône de verre
+    is_correct: false
+  - answer: Le trône de feu
+    is_correct: false
+  - answer: Le trône d'or
+    is_correct: false
+  level: '1'
+  question: 'Dans Game of Thrones, le trône de Westeros est appelé:'
+  tags: domain:cinema
+- answers:
+  - answer: Salvador Dali
+    is_correct: true
+  - answer: Robin des bois
+    is_correct: false
+  - answer: Le roi Juan Carlos
+    is_correct: false
+  - answer: Napoleon
+    is_correct: false
+  - answer: Guy Fawkes
+    is_correct: false
+  level: '1'
+  question: Qui représente le masque derrière lequel se dissimulent les héros de la Casa de papel ?
+  tags: domain:cinema
+- answers:
+  - answer: Uber Cab
+    is_correct: true
+  - answer: Uber Taxi
+    is_correct: false
+  - answer: Uber Alles
+    is_correct: false
+  - answer: Uber Yo
+    is_correct: false
+  - answer: Uber Holà
+    is_correct: false
+  level: '1'
+  question: Quel était le premier nom de l'application Uber ?
+  tags: domain:technology
+- answers:
+  - answer: Saga Africa
+    is_correct: true
+  - answer: Waka waka
+    is_correct: false
+  - answer: Afrique Adieu
+    is_correct: false
+  - answer: Afrique Show
+    is_correct: false
+  - answer: Wake Africa
+    is_correct: false
+  - answer: Douala-Paris
+    is_correct: false
+  level: '1'
+  question: Quel est le titre du premier tube de Yannick Noah ?
+  tags: domain:music; country:fr
+- answers:
+  - answer: Des aliments produits localement
+    is_correct: true
+  - answer: De la lagouste
+    is_correct: false
+  - answer: Des poissons de la famille du loup
+    is_correct: false
+  - answer: De la viande uniquement
+    is_correct: false
+  level: '1'
+  question: Que consomme le locavore ?
+  tags: domain:biology
+- answers:
+  - answer: Le gluten
+    is_correct: true
+  - answer: Le lactène
+    is_correct: false
+  - answer: Le sucrose
+    is_correct: false
+  - answer: Les arachides
+    is_correct: false
+  - answer: Le soja
+    is_correct: false
+  - answer: Le lait
+    is_correct: false
+  level: '2'
+  question: Laquelle de ces trois molécules est un allergène répandu ?
+  tags: domain:biology
+- answers:
+  - answer: Un entomophage
+    is_correct: true
+  - answer: Un insectophage
+    is_correct: false
+  - answer: Un hexapodophage
+    is_correct: false
+  - answer: Un limivore
+    is_correct: false
+  - answer: Un granivore
+    is_correct: false
+  level: '2'
+  question: Comment appelle-t-on celui qui consomme des insectes ?
+  tags: domain:biology
+- answers:
+  - answer: Bacon de mer
+    is_correct: true
+  - answer: Laitue de mer
+    is_correct: false
+  - answer: Haricot de mer
+    is_correct: false
+  - answer: Saucisson de mer
+    is_correct: false
+  - answer: Cérise de mer
+    is_correct: false
+  level: '2'
+  question: 'La dulse, une algue comestible, est surnommée:'
+  tags: domain:biology
+- answers:
+  - answer: wagashi
+    is_correct: true
+  - answer: Les sushis
+    is_correct: false
+  - answer: Les ramen
+    is_correct: false
+  - answer: Les izakaya
+    is_correct: false
+  - answer: Les nem
+    is_correct: false
+  - answer: Les tendori
+    is_correct: false
+  level: '2'
+  question: Comment appelle-t-on les pâtisseries japonaises ?
+  tags: domain:tourism; country:jp; meta:japon
+- answers:
+  - answer: Liste des choses à faire
+    is_correct: true
+  - answer: Liste des choses à vendre
+    is_correct: false
+  - answer: Liste des choses à acheter
+    is_correct: false
+  - answer: Liste des choses à vérifier
+    is_correct: false
+  level: '1'
+  question: Que signifie l'expression to-do-list ?
+  tags: domain:knowledge
+- answers:
+  - answer: Du mot googol
+    is_correct: true
+  - answer: Du verbe anglais to google
+    is_correct: false
+  - answer: De l'écrivain russe Nicolas Gogol
+    is_correct: false
+  level: '2'
+  question: 'Le mot Google provient:'
+  tags: domain:technology; domain:knowledge
+- answers:
+  - answer: Global Positioning System
+    is_correct: true
+  - answer: Gestion de la position spatiale
+    is_correct: false
+  - answer: General Places Spotting
+    is_correct: false
+  - answer: Global Place System
+    is_correct: false
+  level: '1'
+  question: Que signifie le sigle GPS ?
+  tags: domain:technology; domain:astronomy
+- answers:
+  - answer: Auckland
+    is_correct: true
+  - answer: Wellington
+    is_correct: false
+  - answer: Melbourne
+    is_correct: false
+  - answer: Sydney
+    is_correct: false
+  - answer: Paris
+    is_correct: false
+  - answer: Londres
+    is_correct: false
+  level: '2'
+  question: Quelle ville a accueillie la finale de la coupe du monde de rugby de 2011 ?
+  tags: domain:sport; meta:rubgy
+- answers:
+  - answer: Les Diables rouges
+    is_correct: true
+  - answer: Les Flamands noirs
+    is_correct: false
+  - answer: Les Flamands rouges
+    is_correct: false
+  - answer: Les Lions jaunes
+    is_correct: false
+  - answer: Les Lions rouges
+    is_correct: false
+  - answer: Les Diables noirs
+    is_correct: false
+  level: '1'
+  question: Comment nomme-t-on l'équipe de football belge ?
+  tags: domain:sport; meta:football
+- answers:
+  - answer: Nécrophage
+    is_correct: true
+  - answer: Nécrovore
+    is_correct: false
+  - answer: Cadravophage
+    is_correct: false
+  - answer: Nécrophore
+    is_correct: false
+  - answer: Cadravore
+    is_correct: false
+  level: '1'
+  question: 'Le vautour est principalement:'
+  tags: domain:biology
+- answers:
+  - answer: Limivore
+    is_correct: true
+  - answer: Gadovore
+    is_correct: false
+  - answer: Vasovore
+    is_correct: false
+  - answer: Piscivore
+    is_correct: false
+  - answer: Granivore
+    is_correct: false
+  level: '2'
+  question: 'Un animal qui se nourrit de boue ou de vase est un:'
+  tags: domain:biology
+- answers:
+  - answer: Granivore
+    is_correct: true
+  - answer: Céréalovore
+    is_correct: false
+  - answer: Graniphage
+    is_correct: false
+  - answer: Limivore
+    is_correct: false
+  - answer: Piscivore
+    is_correct: false
+  level: '2'
+  question: 'Un oiseau qui mange des graines est un:'
+  tags: domain:biology
+- answers:
+  - answer: Piscivore
+    is_correct: true
+  - answer: Salmoniphage
+    is_correct: false
+  - answer: Aquaphage
+    is_correct: false
+  - answer: Limivore
+    is_correct: false
+  - answer: Nécrovore
+    is_correct: false
+  level: '2'
+  question: 'La loutre est évidemment carnivore mais elle est principalement:'
+  tags: domain:biology
+- answers:
+  - answer: Omnivore
+    is_correct: true
+  - answer: Macdovore
+    is_correct: false
+  - answer: Quickiphage
+    is_correct: false
+  - answer: Limivore
+    is_correct: false
+  - answer: Gadovore
+    is_correct: false
+  - answer: Céréalovore
+    is_correct: false
+  level: '1'
+  question: 'L''homme est essentiellement:'
+  tags: domain:biology
+- answers:
+  - answer: Des excréments
+    is_correct: true
+  - answer: Des feuilles
+    is_correct: false
+  - answer: Des proies mortes
+    is_correct: false
+  - answer: De la boue
+    is_correct: false
+  - answer: Du sable
+    is_correct: false
+  - answer: De l'argile
+    is_correct: false
+  level: '2'
+  question: 'Un insecte scatophage est un insecte qui mange:'
+  tags: domain:biology
+- answers:
+  - answer: Coprophage
+    is_correct: true
+  - answer: Melliphage
+    is_correct: false
+  - answer: Xanthophage
+    is_correct: false
+  - answer: Saccharophage
+    is_correct: false
+  - answer: Quickiphage
+    is_correct: false
+  - answer: Lithophage
+    is_correct: false
+  level: '2'
+  question: 'Un insecte scatophage est aussi appelé:'
+  tags: domain:biology
+- answers:
+  - answer: Xylophage
+    is_correct: true
+  - answer: Pinivore
+    is_correct: false
+  - answer: Xanthophage
+    is_correct: false
+  - answer: Coprophage
+    is_correct: false
+  - answer: Lithophage
+    is_correct: false
+  - answer: Macdovore
+    is_correct: false
+  level: '2'
+  question: 'Un champignon qui se nourrit du bois sur lequel il pousse, est dit :'
+  tags: domain:biology
+- answers:
+  - answer: Frugivore
+    is_correct: true
+  - answer: Fructivore
+    is_correct: false
+  - answer: Bananasplitovore
+    is_correct: false
+  - answer: Ananasplitovore
+    is_correct: false
+  - answer: Nécrovore
+    is_correct: false
+  - answer: Sucrivoire
+    is_correct: false
+  level: '2'
+  question: 'Un animal qui se nourrit de fruits, de végétaux, est un :'
+  tags: domain:biology
+- answers:
+  - answer: Téléphage
+    is_correct: true
+  - answer: Staraccophage
+    is_correct: false
+  - answer: Zitronovore
+    is_correct: false
+  - answer: Gadovore
+    is_correct: false
+  - answer: Nécrophage
+    is_correct: false
+  - answer: Télévore
+    is_correct: false
+  - answer: Ecranivore
+    is_correct: false
+  level: '2'
+  question: 'Un humain qui est ''''accro'''' au petit écran est dit:'
+  tags: domain:technology; domain:knowledge
+- answers:
+  - answer: Lithophages
+    is_correct: true
+  - answer: Lichophages
+    is_correct: false
+  - answer: Xylophages
+    is_correct: false
+  - answer: Xanthophages
+    is_correct: false
+  - answer: Melliphages
+    is_correct: false
+  level: '2'
+  question: 'Certains coquillages rongent la pierre, ils sont appelés :'
+  tags: domain:biology
+- answers:
+  - answer: Gambie
+    is_correct: true
+  - answer: Togo
+    is_correct: false
+  - answer: Libéria
+    is_correct: false
+  - answer: Benin
+    is_correct: false
+  - answer: Burkina Faso
+    is_correct: false
+  - answer: Somalie
+    is_correct: false
+  - answer: Angola
+    is_correct: false
+  - answer: Egypte
+    is_correct: false
+  - answer: Mali
+    is_correct: false
+  - answer: Guinée
+    is_correct: false
+  - answer: Lesotho
+    is_correct: false
+  level: '2'
+  question: Quel est le plus petit pays de l'Afrique de l'Ouest ?
+  tags: domain:geography; meta:gambia
+- answers:
+  - answer: Bokar Traoré
+    is_correct: true
+  - answer: Samory Touré
+    is_correct: false
+  - answer: Bokar Ouattara
+    is_correct: false
+  - answer: Wattra Touré
+    is_correct: false
+  - answer: Amadou Gon
+    is_correct: false
+  - answer: Aliou Traoré
+    is_correct: false
+  level: '1'
+  question: Qui est le fondateur du royaume de Kong ?
+  tags: domain:history; country:ci
+- answers:
+  - answer: Hiérosolymitains
+    is_correct: true
+  - answer: Israeliens
+    is_correct: false
+  - answer: Juifs
+    is_correct: false
+  - answer: Salemois
+    is_correct: false
+  - answer: Jérusalemiens
+    is_correct: false
+  - answer: Jérusalemois
+    is_correct: false
+  level: '3'
+  question: Quel est le nom des habitants de Jérusalem ?
+  tags: domain:geography; country:is; meta:israel; meta:palestine
+- answers:
+  - answer: Rhotacisme
+    is_correct: true
+  - answer: Zozotement
+    is_correct: false
+  - answer: Dysphasie
+    is_correct: false
+  - answer: Balbutiement
+    is_correct: false
+  - answer: Bredouillement
+    is_correct: false
+  - answer: Bégaiement
+    is_correct: false
+  level: '2'
+  question: 'L''incapacité de prononcer la lettre "r" est appelé:'
+  tags: domain:medecine; meta:handicap; meta:orthophonie
+- answers:
+  - answer: Mercure
+    is_correct: true
+  - answer: Vénus
+    is_correct: true
+  - answer: Mars
+    is_correct: false
+  - answer: Terre
+    is_correct: false
+  - answer: Jupiter
+    is_correct: false
+  - answer: Saturne
+    is_correct: false
+  - answer: Uranus
+    is_correct: false
+  - answer: Neptune
+    is_correct: false
+  level: '1'
+  question: Quelles sont les planètes de notre système solaire à ne pas avoir de lune ?
+  tags: domain:astronomy; meta:venus; meta:mercure
+- answers:
+  - answer: 1 392 000 km
+    is_correct: true
+  - answer: 1 392 000 000 km
+    is_correct: false
+  - answer: 2 392 000 km
+    is_correct: false
+  - answer: 3 392 000 km
+    is_correct: false
+  - answer: 1 400 000 km
+    is_correct: false
+  level: '1'
+  question: Quel est le diamètre du soleil ?
+  tags: domain:astronomy; meta:sun
+- answers:
+  - answer: Uranus
+    is_correct: true
+  - answer: Mars
+    is_correct: false
+  - answer: Terre
+    is_correct: false
+  - answer: Mercure
+    is_correct: false
+  - answer: Vénus
+    is_correct: false
+  level: '2'
+  question: Laquelle de ces planètes n'est pas tellurique ?
+  tags: domain:astronomy
+- answers:
+  - answer: Le 24 décembre 1979
+    is_correct: true
+  - answer: Le 25 décembre 1979
+    is_correct: false
+  - answer: Le 25 décembre 1980
+    is_correct: false
+  - answer: Le 24 décembre 1981
+    is_correct: false
+  - answer: Le 24 décembre 1980
+    is_correct: false
+  level: '1'
+  question: Quelle est la date du premier lancement réussi de la fusée Ariane ?
+  tags: domain:astronomy; domain:technology; country:fr; meta:france
+- answers:
+  - answer: Vénus
+    is_correct: true
+  - answer: Le Soleil
+    is_correct: false
+  - answer: Saturne
+    is_correct: false
+  - answer: Véga
+    is_correct: false
+  - answer: La Lune
+    is_correct: false
+  level: '2'
+  question: Qu'appelle-t-on "l'étoile du berger" ?
+  tags: domain:astronomy
+- answers:
+  - answer: Christiaan Huygens
+    is_correct: true
+  - answer: James Kirk
+    is_correct: false
+  - answer: Jean-Dominique Cassini
+    is_correct: false
+  - answer: Isaac Newton
+    is_correct: false
+  - answer: Johannes Kepler
+    is_correct: false
+  level: '2'
+  question: Qui a découvert Titan, un satellite de Saturne ?
+  tags: domain:astronomy
+- answers:
+  - answer: 384 000 km
+    is_correct: true
+  - answer: 300 000 km
+    is_correct: false
+  - answer: 374 000 km
+    is_correct: false
+  - answer: 384 500 km
+    is_correct: false
+  - answer: 386 000 km
+    is_correct: false
+  - answer: 394 000 km
+    is_correct: false
+  level: '1'
+  question: Quelle est la distance Terre-Lune ?
+  tags: domain:astronomy
+- answers:
+  - answer: Pioneer 10
+    is_correct: true
+  - answer: SoHo
+    is_correct: false
+  - answer: Cassini-Huygens
+    is_correct: false
+  - answer: Pioneer 11
+    is_correct: false
+  - answer: Mariner 10
+    is_correct: false
+  - answer: Pioneer X
+    is_correct: false
+  level: '3'
+  question: Quel fut le premier engin spatial à avoir traversé la ceinture d'astéroïdes ?
+  tags: domain:astronomy
+- answers:
+  - answer: Vénus
+    is_correct: true
+  - answer: Mars
+    is_correct: false
+  - answer: Mercure
+    is_correct: false
+  - answer: La Lune
+    is_correct: false
+  - answer: Saturne
+    is_correct: false
+  - answer: Mercure
+    is_correct: false
+  level: '2'
+  question: Comment s'appelle la planète la plus proche de la Terre ?
+  tags: domain:astronomy; meta:venus
+- answers:
+  - answer: Un spationaute
+    is_correct: true
+  - answer: Un astronaute
+    is_correct: false
+  - answer: Un cosmonaute
+    is_correct: false
+  - answer: Un astronaute
+    is_correct: false
+  - answer: Un internaute
+    is_correct: false
+  - answer: Un taïkonaute
+    is_correct: false
+  level: '1'
+  question: En France, comment appelle-t-on un homme qui va dans l'espace ?
+  tags: domain:astronomy; country:fr; meta:france
+- answers:
+  - answer: Un taïkonaute
+    is_correct: true
+  - answer: Un astronaute
+    is_correct: false
+  - answer: Un cosmonaute
+    is_correct: false
+  - answer: Un astronaute
+    is_correct: false
+  - answer: Un internaute
+    is_correct: false
+  level: '1'
+  question: En Chine, comment appelle-t-on un homme qui va dans l'espace ?
+  tags: domain:astronomy; country:cn; meta:chine
+- answers:
+  - answer: Un cosmonaute
+    is_correct: true
+  - answer: Un astronaute
+    is_correct: false
+  - answer: Un astronaute
+    is_correct: false
+  - answer: Un internaute
+    is_correct: false
+  - answer: Un taïkonaute
+    is_correct: false
+  level: '1'
+  question: En Russie, comment appelle-t-on un homme qui va dans l'espace ?
+  tags: domain:astronomy; country:ru; meta:russie
+- answers:
+  - answer: Un astronaute
+    is_correct: true
+  - answer: Un cosmonaute
+    is_correct: false
+  - answer: Un internaute
+    is_correct: false
+  - answer: Un internaute
+    is_correct: false
+  - answer: Un taïkonaute
+    is_correct: false
+  level: '1'
+  question: Aux USA, comment appelle-t-on un homme qui va dans l'espace ?
+  tags: domain:astronomy; country:us; meta:etats-unis; meta:usa
+- answers:
+  - answer: 300 000 km/s
+    is_correct: true
+  - answer: 300 km/s
+    is_correct: false
+  - answer: 3000 km/s
+    is_correct: false
+  - answer: 3 000 000 km/s
+    is_correct: false
+  - answer: 30 000 km/s
+    is_correct: false
+  level: '1'
+  question: Quelle est la vitesse de la lumière ?
+  tags: domain:astronomy
+- answers:
+  - answer: Notre galaxie
+    is_correct: true
+  - answer: Une étoile
+    is_correct: false
+  - answer: Notre planète
+    is_correct: false
+  - answer: Une boisson
+    is_correct: false
+  - answer: Une marque de vêtement
+    is_correct: false
+  level: '1'
+  question: Qu'appelle-t-on "Voie lactée" ?
+  tags: domain:astronomy
+- answers:
+  - answer: Rouge
+    is_correct: true
+  - answer: Verte
+    is_correct: false
+  - answer: Jaune
+    is_correct: false
+  - answer: Noire
+    is_correct: false
+  - answer: Bleue
+    is_correct: false
+  - answer: Blanche
+    is_correct: false
+  level: '1'
+  question: Quelle est la couleur de la planète Mars ?
+  tags: domain:astronomy
+- answers:
+  - answer: La distance
+    is_correct: true
+  - answer: La lumière
+    is_correct: false
+  - answer: La vitesse
+    is_correct: false
+  - answer: Le mouvement
+    is_correct: false
+  - answer: Le temps
+    is_correct: false
+  level: '1'
+  question: 'L''Année-Lumière sert à mesurer :'
+  tags: domain:astronomy
+- answers:
+  - answer: Andromède
+    is_correct: true
+  - answer: La Voie lactée
+    is_correct: false
+  - answer: Andromaide
+    is_correct: false
+  - answer: Andromaque
+    is_correct: false
+  - answer: Androumède
+    is_correct: false
+  level: '1'
+  question: Quelle est la galaxie la plus proche de la nôtre ?
+  tags: domain:astronomy
+- answers:
+  - answer: L'Aigle
+    is_correct: true
+  - answer: le Phénix
+    is_correct: false
+  - answer: Le Dragon
+    is_correct: false
+  - answer: Le Lynx
+    is_correct: false
+  - answer: La Lyre
+    is_correct: false
+  level: '3'
+  question: Dans quelle constellation est située Altaïr ?
+  tags: domain:astronomy
+- answers:
+  - answer: Madagascar
+    is_correct: true
+  - answer: Somalie
+    is_correct: false
+  - answer: Namibie
+    is_correct: false
+  - answer: Lybie
+    is_correct: false
+  - answer: Angola
+    is_correct: false
+  - answer: Gabon
+    is_correct: false
+  - answer: Cameroun
+    is_correct: false
+  - answer: Gambie
+    is_correct: false
+  level: '2'
+  question: De quel pays Antananarivo est-elle la capitale ?
+  tags: domain:geography; meta:madagascar; meta:capitals; meta:africa; country:md; meta:town; meta:city
+- answers:
+  - answer: Khartoum
+    is_correct: true
+  - answer: Accra
+    is_correct: false
+  - answer: Libreville
+    is_correct: false
+  - answer: Caire
+    is_correct: false
+  - answer: Cassablanca
+    is_correct: false
+  - answer: Misrata
+    is_correct: false
+  - answer: Karthoum
+    is_correct: false
+  - answer: Kartouhm
+    is_correct: false
+  - answer: Juba
+    is_correct: false
+  level: '2'
+  question: Comment écrit-on le nom de la capitale du Soudan ?
+  tags: domain:geography; meta:soudan; meta:capitals; meta:africa; country:sd; meta:town; meta:city
+- answers:
+  - answer: Burkina Faso
+    is_correct: true
+  - answer: Liberia
+    is_correct: false
+  - answer: Mali
+    is_correct: false
+  - answer: Guinée
+    is_correct: false
+  - answer: Togo
+    is_correct: false
+  - answer: Benin
+    is_correct: false
+  level: '1'
+  question: De quel pays Ouagadougou est-elle la capitale ?
+  tags: domain:geography; country:bf; meta:burkina-faso; meta:capitals; meta:africa; meta:town; meta:city
+- answers:
+  - answer: Abuja
+    is_correct: true
+  - answer: Lagos
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Accra
+    is_correct: false
+  - answer: Kumasi
+    is_correct: false
+  - answer: Lomé
+    is_correct: false
+  level: '2'
+  question: Quelle est la capitale du Nigéria ?
+  tags: domain:geography; meta:nigeria; meta:capitals; meta:africa; country:ng; meta:town; meta:city
+- answers:
+  - answer: Dodoma
+    is_correct: true
+  - answer: Accra
+    is_correct: false
+  - answer: Libreville
+    is_correct: false
+  - answer: Caire
+    is_correct: false
+  - answer: Cassablanca
+    is_correct: false
+  - answer: Dar es Salam
+    is_correct: false
+  level: '2'
+  question: Quelle est la capitale de la Tanzanie ?
+  tags: domain:geography; meta:tanzanie; meta:capitals; meta:africa; country:tz; meta:city
+- answers:
+  - answer: Freetown
+    is_correct: true
+  - answer: Accra
+    is_correct: false
+  - answer: Bridgetown
+    is_correct: false
+  - answer: Kingston
+    is_correct: false
+  - answer: Capetown
+    is_correct: false
+  - answer: Juba
+    is_correct: false
+  - answer: Durban
+    is_correct: false
+  level: '2'
+  question: Quelle est la capitale de la Sierra Leone ?
+  tags: domain:geography; meta:sierra-leone; country:sl; meta:capitals; meta:africa; meta:town; meta:city
+- answers:
+  - answer: Maputo
+    is_correct: true
+  - answer: Durban
+    is_correct: false
+  - answer: Dar es Salam
+    is_correct: false
+  - answer: Juba
+    is_correct: false
+  - answer: Accra
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Lagos
+    is_correct: false
+  - answer: Khartoum
+    is_correct: false
+  level: '2'
+  question: Quelle est la capitale du Mozambique ?
+  tags: domain:geography; meta:mozambique; country:mz; meta:capitals; meta:africa; meta:town; meta:city
+- answers:
+  - answer: Le Niger
+    is_correct: true
+  - answer: Le Tchad
+    is_correct: false
+  - answer: Le Mali
+    is_correct: false
+  - answer: Le Sénégal
+    is_correct: false
+  - answer: Le Lesotho
+    is_correct: false
+  - answer: Le Maroc
+    is_correct: false
+  level: '1'
+  question: Quand on est à Niamey, on se trouve dans quel pays ?
+  tags: domain:geography; meta:niger; meta:town; meta:africa; meta:capitals; country:ne; meta:city
+- answers:
+  - answer: Yamoussoukro
+    is_correct: true
+  - answer: Yaren
+    is_correct: false
+  - answer: Yaoundé
+    is_correct: false
+  - answer: Youssoufia
+    is_correct: false
+  - answer: Yutz
+    is_correct: false
+  - answer: York
+    is_correct: false
+  level: '1'
+  question: Quelle ville commençant par un Y est la capitale de la Côte d’Ivoire ?
+  tags: domain:geography; meta:cote-divoire; meta:town; country:ci; meta:capitals; meta:africa; meta:city
+- answers:
+  - answer: Praia
+    is_correct: true
+  - answer: Asmara
+    is_correct: false
+  - answer: Abidjan
+    is_correct: false
+  - answer: Bamako
+    is_correct: false
+  - answer: Agadir
+    is_correct: false
+  - answer: Beira
+    is_correct: false
+  level: '2'
+  question: Quelle est la capitale du Cap Vert ?
+  tags: domain:geography; meta:cap-vert; meta:capitals; meta:africa; country:cv; meta:city
+- answers:
+  - answer: 22 fois
+    is_correct: true
+  - answer: 24 fois
+    is_correct: false
+  - answer: 20 fois
+    is_correct: false
+  - answer: 12 fois
+    is_correct: false
+  - answer: 36 fois
+    is_correct: false
+  - answer: 21 fois
+    is_correct: false
+  - answer: 23 fois
+    is_correct: false
+  level: '2'
+  question: Combien de fois les aiguilles des minutes et des heures se chevauchent en une journée ?
+  tags: meta:logical; meta:test-hr; domain:mathematic
+- answers:
+  - answer: 7.5°
+    is_correct: true
+  - answer: 0°
+    is_correct: false
+  - answer: 180°
+    is_correct: false
+  - answer: 10°
+    is_correct: false
+  - answer: 15°
+    is_correct: false
+  - answer: 45°
+    is_correct: false
+  - answer: 60°
+    is_correct: false
+  - answer: 10.5°
+    is_correct: false
+  - answer: 5°
+    is_correct: false
+  - answer: 9.5°
+    is_correct: false
+  - answer: 2°
+    is_correct: false
+  - answer: 6.5°
+    is_correct: false
+  - answer: 7°
+    is_correct: false
+  level: '2'
+  question: A 3h15mn quel est l'angle formé par l'aiguille des minutes et des heures ?
+  tags: meta:logical; meta:test-hr; domain:mathematic
+- answers:
+  - answer: '1843'
+    is_correct: true
+  - answer: '1800'
+    is_correct: false
+  - answer: '1893'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '1949'
+    is_correct: false
+  - answer: '1883'
+    is_correct: false
+  - answer: '1900'
+    is_correct: false
+  - answer: '1850'
+    is_correct: false
+  - answer: '1950'
+    is_correct: false
+  - answer: '1993'
+    is_correct: false
+  level: '2'
+  question: En quelle année la Côte d'Ivoire devient-elle un protectorat français ?
+  tags: domain:history; country:ci
+- answers:
+  - answer: Pierre Marie Coty
+    is_correct: true
+  - answer: Houphouet Boigny
+    is_correct: false
+  - answer: Mathieu Ekra
+    is_correct: false
+  - answer: Emile Bombet
+    is_correct: false
+  - answer: Paul Ahizi
+    is_correct: false
+  - answer: Séry Bailly
+    is_correct: false
+  - answer: Maurice Bandaman
+    is_correct: false
+  - answer: Pierre Kipré
+    is_correct: false
+  - answer: Aké Loba
+    is_correct: false
+  - answer: Isaïe Biton Koulibaly
+    is_correct: false
+  level: '1'
+  question: Qui est l'auteur des paroles de l'Abidjanaise ?
+  tags: domain:history; country:ci; meta:abidjanaise
+- answers:
+  - answer: '1913'
+    is_correct: true
+  - answer: '1900'
+    is_correct: false
+  - answer: '1910'
+    is_correct: false
+  - answer: '1911'
+    is_correct: false
+  - answer: '1912'
+    is_correct: false
+  - answer: '1920'
+    is_correct: false
+  - answer: '1921'
+    is_correct: false
+  - answer: '1915'
+    is_correct: false
+  - answer: '1922'
+    is_correct: false
+  - answer: '1901'
+    is_correct: false
+  - answer: '1902'
+    is_correct: false
+  - answer: '1905'
+    is_correct: false
+  level: '2'
+  question: En quelle année fut construit le phare de Grand-Bassam ?
+  tags: domain:history; country:ci; meta:grand-bassam; meta:city
+- answers:
+  - answer: '1964'
+    is_correct: true
+  - answer: '1970'
+    is_correct: false
+  - answer: '1960'
+    is_correct: false
+  - answer: '1962'
+    is_correct: false
+  - answer: '1966'
+    is_correct: false
+  - answer: '1980'
+    is_correct: false
+  - answer: '1959'
+    is_correct: false
+  - answer: '1986'
+    is_correct: false
+  - answer: '1990'
+    is_correct: false
+  - answer: '1988'
+    is_correct: false
+  - answer: '1985'
+    is_correct: false
+  level: '2'
+  question: 'La Côte d''Ivoire participe à ses premiers jeux olympiques en:'
+  tags: domain:history; domain:sport; country:ci; meta:olympic
+

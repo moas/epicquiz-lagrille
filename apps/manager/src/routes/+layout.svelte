@@ -41,6 +41,16 @@
 {/if}
 
 <style>
+	:global(input::placeholder),
+	:global(textarea::placeholder) {
+		color: #94a3b8;
+		opacity: 1;
+		font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+		font-size: 0.875rem;
+		font-weight: 500;
+		letter-spacing: 0;
+	}
+
 	.session-check {
 		display: grid;
 		min-height: 100dvh;

@@ -165,6 +165,30 @@ def test_staff_can_manage_questions_and_propositions():
     assert not Question.objects.filter(pk=question.pk).exists()
 
 
+def test_staff_can_filter_questions_by_search_and_level():
+    api_client = APIClient()
+    api_client.force_authenticate(UserFactory.create(is_staff=True))
+    matching_question = Question.objects.create(
+        label="Quelle est la capitale du Sénégal ?",
+        slug="capitale-senegal",
+        level=Question.Level.STONE,
+    )
+    Question.objects.create(
+        label="Quelle est la capitale du Ghana ?",
+        slug="capitale-ghana",
+        level=Question.Level.WOOD,
+    )
+
+    response = api_client.get(
+        reverse("api:qa-question-list"),
+        {"search": "sénégal", "level": Question.Level.STONE},
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["id"] == str(matching_question.id)
+
+
 def test_staff_cannot_delete_a_proposition_used_by_a_question():
     question = Question.objects.create(
         label="Question",

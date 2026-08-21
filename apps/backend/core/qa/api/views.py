@@ -15,6 +15,7 @@ from core.qa.importers import QuestionYamlImporter
 from core.qa.models import Proposition
 from core.qa.models import Question
 
+from .filters import QuestionFilter
 from .serializers import AnswerSerializer
 from .serializers import PropositionSerializer
 from .serializers import QuestionCreateSerializer
@@ -54,6 +55,7 @@ class QuestionViewSet(
     viewsets.GenericViewSet,
 ):
     queryset = Question.objects.prefetch_related("answers__proposition")
+    filterset_class = QuestionFilter
     permission_classes = [IsAdminUser]
 
     def get_serializer_class(self):
