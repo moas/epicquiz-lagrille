@@ -16,6 +16,7 @@ from core.games.models import StealAttribute
 from core.grid.models import Cell
 from core.grid.models import Grid
 
+from .filters import EpisodeFilter
 from .serializers import CoordinateFormatSerializer
 from .serializers import EpisodeSerializer
 from .serializers import GridConfigSerializer
@@ -27,6 +28,8 @@ from .serializers import StealAttributeSerializer
 
 class EpisodeViewSet(
     mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
     mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
@@ -34,6 +37,7 @@ class EpisodeViewSet(
     queryset = Episode.objects.all()
     serializer_class = EpisodeSerializer
     permission_classes = [IsAdminUser]
+    filterset_class = EpisodeFilter
 
     def perform_update(self, serializer):
         self._ensure_not_ended(serializer.instance)

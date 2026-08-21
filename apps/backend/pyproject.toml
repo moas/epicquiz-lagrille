@@ -37,6 +37,7 @@ dependencies = [
   "redis==8.1.0",
   "sentry-sdk==2.68.0",
   "whitenoise==6.12.0",
+  "django-filter>=26.1",
 ]
 
 [dependency-groups]

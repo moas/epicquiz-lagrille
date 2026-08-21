@@ -75,6 +75,36 @@ def test_non_staff_cannot_manage_episodes(api_client):
     assert response.status_code == HTTPStatus.FORBIDDEN
 
 
+def test_staff_can_list_and_filter_episodes(api_client):
+    staff_user = UserFactory.create(is_staff=True)
+    matching_episode = Episode.objects.create(title="Quiz de rentrée")
+    inactive_episode = Episode.objects.create(
+        title="Quiz de rentrée archivé",
+        is_active=False,
+    )
+    started_episode = Episode.objects.create(title="Quiz en direct")
+    Episode.objects.filter(pk=started_episode.pk).update(state=Episode.State.START)
+    api_client.force_authenticate(staff_user)
+
+    response = api_client.get(
+        reverse("api:episode-list"),
+        {
+            "state": Episode.State.PENDING,
+            "is_active": "true",
+            "search": "rentrée",
+        },
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.data["count"] == 1
+    assert [episode["id"] for episode in response.data["results"]] == [
+        str(matching_episode.pk),
+    ]
+    assert str(inactive_episode.pk) not in [
+        episode["id"] for episode in response.data["results"]
+    ]
+
+
 def test_generate_username_uses_readable_characters():
     username = generate_username(USERNAME_SIZE)
 

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_fsm import FSMField
 from django_fsm import transition
@@ -50,11 +51,11 @@ class Episode(BaseModel, TimeFramedModel):
         conditions=[has_grid],
     )
     def start(self):
-        pass
+        self.start = timezone.now()
 
     @transition(field=state, source=State.START, target=State.END)
     def end(self):
-        pass
+        self.end = timezone.now()
 
     class Meta:
         verbose_name = _("Game")
