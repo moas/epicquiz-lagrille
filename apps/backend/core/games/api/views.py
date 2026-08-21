@@ -1,7 +1,6 @@
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django_fsm import can_proceed
-from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -17,6 +16,7 @@ from core.grid.models import Cell
 from core.grid.models import Grid
 
 from .filters import EpisodeFilter
+from .filters import ParticipantFilter
 from .serializers import CoordinateFormatSerializer
 from .serializers import EpisodeSerializer
 from .serializers import GridConfigSerializer
@@ -26,14 +26,7 @@ from .serializers import QueryConfigSerializer
 from .serializers import StealAttributeSerializer
 
 
-class EpisodeViewSet(
-    mixins.CreateModelMixin,
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.GenericViewSet,
-):
+class EpisodeViewSet(viewsets.ModelViewSet):
     queryset = Episode.objects.all()
     serializer_class = EpisodeSerializer
     permission_classes = [IsAdminUser]
@@ -124,10 +117,13 @@ class EpisodeViewSet(
         url_name="participants",
     )
     def participants(self, request, pk=None):
-        episode = self.get_object()
+        episode = get_object_or_404(self.get_queryset(), pk=pk)
 
         if request.method == "GET":
-            queryset = episode.participants.select_related("user")
+            queryset = ParticipantFilter(
+                request.query_params,
+                queryset=episode.participants.select_related("user"),
+            ).qs
             serializer = ParticipantSerializer(queryset, many=True)
             return Response(serializer.data)
 
@@ -145,7 +141,7 @@ class EpisodeViewSet(
         url_name="participant",
     )
     def participant(self, request, participant_id=None, pk=None):
-        episode = self.get_object()
+        episode = get_object_or_404(self.get_queryset(), pk=pk)
         participant = get_object_or_404(
             episode.participants.select_related("user"),
             pk=participant_id,
@@ -154,12 +150,16 @@ class EpisodeViewSet(
         if request.method == "GET":
             return Response(ParticipantSerializer(participant).data)
 
-        self._ensure_not_ended(episode)
         if request.method == "DELETE":
+            if episode.state == Episode.State.PENDING:
+                participant.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+
             participant.is_active = False
             participant.save(update_fields=["is_active", "modified"])
             return Response(status=status.HTTP_204_NO_CONTENT)
 
+        self._ensure_not_ended(episode)
         serializer = ParticipantSerializer(
             participant,
             data=request.data,
