@@ -85,9 +85,10 @@ DJANGO_APPS = [
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     "django.forms",
+    "django.contrib.postgres",
 ]
 THIRD_PARTY_APPS = [
-    "polymorphic"
+    "polymorphic",
     "crispy_forms",
     "crispy_bootstrap5",
     "django_celery_beat",
@@ -102,8 +103,8 @@ LOCAL_APPS = [
     "core.audit.apps.AuditConfig",
     "core.qa.apps.QaConfig",
     "core.games.apps.GamesConfig",
-    "core.grid.apps.AuditConfig",
-    # Your stuff: custom apps go here
+    "core.grid.apps.GridConfig",
+    "core.challenges.apps.ChallengesConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
