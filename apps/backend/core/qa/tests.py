@@ -189,6 +189,60 @@ def test_staff_can_filter_questions_by_search_and_level():
     assert response.data["results"][0]["id"] == str(matching_question.id)
 
 
+def test_staff_can_filter_questions_by_tag_text():
+    api_client = APIClient()
+    api_client.force_authenticate(UserFactory.create(is_staff=True))
+    tagged_question = Question.objects.create(
+        label="Question géographique",
+        slug="question-geographique",
+        tags=["domain:geography"],
+    )
+    Question.objects.create(
+        label="Question historique",
+        slug="question-historique",
+        tags=["domain:history"],
+    )
+
+    response = api_client.get(
+        reverse("api:qa-question-list"),
+        {"search": "geogra"},
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["id"] == str(tagged_question.id)
+
+
+def test_staff_can_create_update_and_remove_question_reason():
+    api_client = APIClient()
+    api_client.force_authenticate(UserFactory.create(is_staff=True))
+    question = Question.objects.create(
+        label="Question avec justification",
+        slug="question-avec-justification",
+    )
+    detail_url = reverse("api:qa-question-detail", kwargs={"pk": question.pk})
+
+    create_reason_response = api_client.patch(
+        detail_url,
+        {"reason": "Cette réponse est la bonne."},
+        format="json",
+    )
+
+    assert create_reason_response.status_code == HTTPStatus.OK
+    assert AnswerReason.objects.get(question=question).content == (
+        "Cette réponse est la bonne."
+    )
+
+    remove_reason_response = api_client.patch(
+        detail_url,
+        {"reason": ""},
+        format="json",
+    )
+
+    assert remove_reason_response.status_code == HTTPStatus.OK
+    assert not AnswerReason.objects.filter(question=question).exists()
+
+
 def test_staff_cannot_delete_a_proposition_used_by_a_question():
     question = Question.objects.create(
         label="Question",

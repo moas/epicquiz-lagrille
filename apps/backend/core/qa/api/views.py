@@ -48,12 +48,7 @@ class QuestionImportView(APIView):
         )
 
 
-class QuestionViewSet(
-    mixins.CreateModelMixin,
-    mixins.DestroyModelMixin,
-    mixins.ListModelMixin,
-    viewsets.GenericViewSet,
-):
+class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.prefetch_related("answers__proposition")
     filterset_class = QuestionFilter
     permission_classes = [IsAdminUser]

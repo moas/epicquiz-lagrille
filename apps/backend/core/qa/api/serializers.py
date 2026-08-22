@@ -38,19 +38,34 @@ class PropositionSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     question = serializers.CharField(source="label")
     answers = AnswerSerializer(many=True, read_only=True)
-    reason = serializers.SerializerMethodField()
+    reason = serializers.CharField(
+        source="justification.content",
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+    )
 
     class Meta:
         model = Question
         fields = ["id", "question", "level", "tags", "reason", "answers", "is_active"]
         read_only_fields = ["id", "answers"]
 
-    @staticmethod
-    def get_reason(question):
-        try:
-            return question.justification.content
-        except AnswerReason.DoesNotExist:
-            return None
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        justification_data = validated_data.pop("justification", None)
+        question = super().update(instance, validated_data)
+
+        if justification_data is not None:
+            content = justification_data.get("content")
+            if content:
+                AnswerReason.objects.update_or_create(
+                    question=question,
+                    defaults={"content": content},
+                )
+            else:
+                AnswerReason.objects.filter(question=question).delete()
+
+        return question
 
 
 class AnswerInputSerializer(serializers.Serializer):

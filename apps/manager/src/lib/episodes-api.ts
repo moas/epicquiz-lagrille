@@ -35,7 +35,24 @@ export type Participant = {
 	tags: string[] | null;
 };
 
-export type Question = { id: string; question: string; level: number; tags: string[]; is_active: boolean };
+export type Answer = { id: string; answer: string; is_correct: boolean };
+export type Question = {
+	id: string;
+	question: string;
+	level: number;
+	tags: string[];
+	reason: string | null;
+	answers: Answer[];
+	is_active: boolean;
+};
+export type UpdateQuestionPayload = Partial<Pick<Question, 'question' | 'level' | 'tags' | 'reason' | 'is_active'>>;
+export type CreateQuestionPayload = {
+	question: string;
+	level: number;
+	tags?: string[];
+	reason?: string;
+	answers: Array<Pick<Answer, 'answer' | 'is_correct'>>;
+};
 export type QueryConfig = { id: string; join: 'and' | 'or'; mode: 'select' | 'unselect'; tags: string[] | null; level: number[] | null };
 
 export type PaginatedEpisodes = {
@@ -164,6 +181,38 @@ type PaginatedQuestions = { count: number; next: string | null; previous: string
 
 export function getQuestionPage(parameters: URLSearchParams) {
 	return request<PaginatedQuestions>(`/api/qa/questions/?${parameters.toString()}`, {}, 'Impossible de charger les questions.');
+}
+
+export function getQuestion(id: string) {
+	return request<Question>(`/api/qa/questions/${id}/`, {}, 'Impossible de charger cette question.');
+}
+
+export function createQuestion(payload: CreateQuestionPayload) {
+	return request<Question>('/api/qa/questions/', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(payload)
+	}, 'Impossible de créer cette question.');
+}
+
+export function updateQuestion(id: string, payload: UpdateQuestionPayload) {
+	return request<Question>(`/api/qa/questions/${id}/`, {
+		method: 'PATCH',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(payload)
+	}, 'Impossible d’enregistrer cette question.');
+}
+
+export async function deleteQuestion(id: string) {
+	await request<void>(`/api/qa/questions/${id}/`, { method: 'DELETE' }, 'Impossible de supprimer cette question.');
+}
+
+export function createQuestionProposition(questionId: string, payload: Pick<Answer, 'answer' | 'is_correct'>) {
+	return request<Answer>(`/api/qa/questions/${questionId}/propositions/`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(payload)
+	}, 'Impossible d’ajouter cette proposition.');
 }
 export function getQueryConfigs(episodeId: string) { return request<QueryConfig[]>(`/api/episodes/${episodeId}/query-configs/`, {}, 'Impossible de charger les règles.'); }
 export function createQueryConfig(episodeId: string, payload: Omit<QueryConfig, 'id'>) { return request<QueryConfig>(`/api/episodes/${episodeId}/query-configs/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }, 'Impossible d’ajouter cette règle.'); }
