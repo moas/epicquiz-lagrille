@@ -54,6 +54,15 @@ export type CreateQuestionPayload = {
 	answers: Array<Pick<Answer, 'answer' | 'is_correct'>>;
 };
 export type QueryConfig = { id: string; join: 'and' | 'or'; mode: 'select' | 'unselect'; tags: string[] | null; level: number[] | null };
+export type EpisodeQuestion = Question & { is_selected: boolean };
+export type PaginatedEpisodeQuestions = {
+	count: number;
+	next: string | null;
+	previous: string | null;
+	results: EpisodeQuestion[];
+	eligible_count: number;
+	selected_count: number;
+};
 
 export type PaginatedEpisodes = {
 	count: number;
@@ -217,6 +226,9 @@ export function createQuestionProposition(questionId: string, payload: Pick<Answ
 export function getQueryConfigs(episodeId: string) { return request<QueryConfig[]>(`/api/episodes/${episodeId}/query-configs/`, {}, 'Impossible de charger les règles.'); }
 export function createQueryConfig(episodeId: string, payload: Omit<QueryConfig, 'id'>) { return request<QueryConfig>(`/api/episodes/${episodeId}/query-configs/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }, 'Impossible d’ajouter cette règle.'); }
 export async function deleteQueryConfig(episodeId: string, id: string) { await request<void>(`/api/episodes/${episodeId}/query-configs/${id}/`, { method: 'DELETE' }, 'Impossible de supprimer cette règle.'); }
+export function getEpisodeQuestions(episodeId: string, parameters = new URLSearchParams()) { const query = parameters.size ? `?${parameters.toString()}` : ''; return request<PaginatedEpisodeQuestions>(`/api/episodes/${episodeId}/questions/${query}`, {}, 'Impossible de charger les questions de cet épisode.'); }
+export function selectEpisodeQuestion(episodeId: string, questionId: string) { return request<{ question_id: string }>(`/api/episodes/${episodeId}/questions/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question_id: questionId }) }, 'Impossible de sélectionner cette question.'); }
+export async function unselectEpisodeQuestion(episodeId: string, questionId: string) { await request<void>(`/api/episodes/${episodeId}/questions/${questionId}/`, { method: 'DELETE' }, 'Impossible de retirer cette question.'); }
 
 export function episodeStateLabel(state: EpisodeState) {
 	return { pending: 'À préparer', start: 'En cours', end: 'Terminé' }[state];

@@ -11,6 +11,7 @@ from model_utils.models import TimeFramedModel
 from polymorphic.models import PolymorphicModel
 
 from core.helpers.models import BaseModel
+from core.qa.models import Question
 
 
 class Episode(BaseModel, TimeFramedModel):
@@ -128,17 +129,47 @@ class QueryConfig(BaseModel):
 
     @property
     def query(self):
-        params = {}
+        criteria = []
         if self.tags:
-            q = "tags__contains"
-            params.update({q: self.tags})
+            criteria.append(models.Q(tags__contains=self.tags))
         if self.level:
-            q = "level__in"
-            params.update({q: self.level})
+            criteria.append(models.Q(level__in=self.level))
+
+        query = models.Q()
+        if criteria:
+            query = criteria[0]
+            for criterion in criteria[1:]:
+                if self.join == self.Join.AND:
+                    query &= criterion
+                else:
+                    query |= criterion
 
         if self.mode == self.Mode.SELECT:
-            return models.Q(**params)
-        return ~models.Q(**params)
+            return query
+        return ~query
+
+
+class EpisodeQuestion(BaseModel):
+    """A question explicitly selected for use in an episode."""
+
+    episode = models.ForeignKey(
+        Episode,
+        on_delete=models.CASCADE,
+        related_name="selected_questions",
+    )
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.PROTECT,
+        related_name="episode_selections",
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["episode", "question"],
+                name="unique_question_selection_per_episode",
+            ),
+        ]
 
 
 class SpecialAttribute(PolymorphicModel, BaseModel):

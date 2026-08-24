@@ -6,6 +6,7 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 
 from core.games.models import Episode
+from core.games.models import EpisodeQuestion
 from core.games.models import Participant
 from core.games.models import QueryConfig
 from core.games.models import StealAttribute
@@ -13,6 +14,7 @@ from core.grid.models import Cell
 from core.grid.models import Grid
 from core.helpers.functional import USERNAME_ALPHABET
 from core.helpers.functional import generate_username
+from core.qa.models import Question
 from core.users.tests.factories import UserFactory
 
 pytestmark = pytest.mark.django_db
@@ -188,6 +190,62 @@ def test_staff_can_manage_episode_query_configs(api_client):
 
     assert delete_response.status_code == HTTPStatus.NO_CONTENT
     assert not QueryConfig.objects.filter(pk=query_config.pk).exists()
+
+
+def test_staff_can_select_questions_matching_episode_rules(api_client):
+    staff_user = UserFactory.create(is_staff=True)
+    episode = Episode.objects.create(title="Épisode 1")
+    matching_question = Question.objects.create(
+        label="Question culture",
+        slug="question-culture",
+        level=Question.Level.STONE,
+        tags=["culture"],
+    )
+    non_matching_question = Question.objects.create(
+        label="Question sport",
+        slug="question-sport",
+        level=Question.Level.STONE,
+        tags=["sport"],
+    )
+    QueryConfig.objects.create(
+        episode=episode,
+        mode=QueryConfig.Mode.SELECT,
+        join=QueryConfig.Join.AND,
+        tags=["culture"],
+        level=[Question.Level.STONE],
+    )
+    api_client.force_authenticate(staff_user)
+    questions_url = reverse("api:episode-questions", kwargs={"pk": episode.pk})
+
+    list_response = api_client.get(questions_url)
+
+    assert list_response.status_code == HTTPStatus.OK
+    assert list_response.data["eligible_count"] == 1
+    assert list_response.data["selected_count"] == 0
+    assert list_response.data["results"][0]["id"] == str(matching_question.pk)
+    assert not list_response.data["results"][0]["is_selected"]
+
+    create_response = api_client.post(
+        questions_url,
+        {"question_id": str(matching_question.pk)},
+    )
+
+    assert create_response.status_code == HTTPStatus.CREATED
+    assert EpisodeQuestion.objects.filter(
+        episode=episode,
+        question=matching_question,
+    ).exists()
+
+    invalid_response = api_client.post(
+        questions_url,
+        {"question_id": str(non_matching_question.pk)},
+    )
+
+    assert invalid_response.status_code == HTTPStatus.BAD_REQUEST
+
+    selected_response = api_client.get(questions_url)
+    assert selected_response.data["selected_count"] == 1
+    assert selected_response.data["results"][0]["is_selected"]
 
 
 def test_staff_can_manage_episode_steal_attributes(api_client):

@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django_fsm import can_proceed
@@ -5,19 +6,26 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 from core.games.models import Episode
+from core.games.models import EpisodeQuestion
 from core.games.models import PrizeAttribute
 from core.games.models import QueryConfig
 from core.games.models import StealAttribute
+from core.games.selectors import eligible_questions_for_episode
+from core.games.services import select_episode_question
 from core.grid.models import Cell
 from core.grid.models import Grid
+from core.qa.api.filters import QuestionFilter
+from core.qa.api.serializers import QuestionSerializer
 
 from .filters import EpisodeFilter
 from .filters import ParticipantFilter
 from .serializers import CoordinateFormatSerializer
+from .serializers import EpisodeQuestionSelectionSerializer
 from .serializers import EpisodeSerializer
 from .serializers import GridConfigSerializer
 from .serializers import ParticipantSerializer
@@ -133,6 +141,82 @@ class EpisodeViewSet(viewsets.ModelViewSet):
         with transaction.atomic():
             serializer.save(episode=episode)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @action(
+        detail=True,
+        methods=["get", "post"],
+        url_path="questions",
+        url_name="questions",
+    )
+    def questions(self, request, pk=None):
+        episode = self.get_object()
+        eligible_questions = eligible_questions_for_episode(episode).order_by("label")
+
+        if request.method == "POST":
+            self._ensure_not_ended(episode)
+            serializer = EpisodeQuestionSelectionSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            try:
+                selection = select_episode_question(
+                    episode=episode,
+                    question_id=serializer.validated_data["question_id"],
+                )
+            except DjangoValidationError as error:
+                raise ValidationError(error.message_dict) from error
+            return Response(
+                {"question_id": selection.question_id},
+                status=status.HTTP_201_CREATED,
+            )
+
+        selected_ids = {
+            str(question_id)
+            for question_id in EpisodeQuestion.objects.filter(
+                episode=episode,
+                question__in=eligible_questions,
+            ).values_list("question_id", flat=True)
+        }
+        filtered_questions = QuestionFilter(
+            request.query_params,
+            queryset=eligible_questions,
+        ).qs
+        page = self.paginate_queryset(filtered_questions)
+        page_questions = page if page is not None else filtered_questions
+        serialized_questions = QuestionSerializer(page_questions, many=True).data
+        results = [
+            {**question, "is_selected": question["id"] in selected_ids}
+            for question in serialized_questions
+        ]
+        eligible_count = eligible_questions.count()
+
+        if page is not None:
+            response = self.get_paginated_response(results)
+            response.data["eligible_count"] = eligible_count
+            response.data["selected_count"] = len(selected_ids)
+            return response
+        return Response(
+            {
+                "eligible_count": eligible_count,
+                "selected_count": len(selected_ids),
+                "results": results,
+            },
+        )
+
+    @action(
+        detail=True,
+        methods=["delete"],
+        url_path=r"questions/(?P<question_id>[^/.]+)",
+        url_name="question",
+    )
+    def question(self, request, question_id=None, pk=None):
+        episode = self.get_object()
+        self._ensure_not_ended(episode)
+        selection = get_object_or_404(
+            EpisodeQuestion,
+            episode=episode,
+            question_id=question_id,
+        )
+        selection.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(
         detail=True,

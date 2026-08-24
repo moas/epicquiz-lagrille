@@ -195,6 +195,10 @@ class QueryConfigSerializer(serializers.ModelSerializer):
         read_only_fields = ["id"]
 
 
+class EpisodeQuestionSelectionSerializer(serializers.Serializer):
+    question_id = serializers.UUIDField()
+
+
 class StealAttributeSerializer(serializers.ModelSerializer):
     class Meta:
         model = StealAttribute
