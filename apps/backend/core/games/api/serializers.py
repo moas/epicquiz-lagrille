@@ -199,6 +199,24 @@ class EpisodeQuestionSelectionSerializer(serializers.Serializer):
     question_id = serializers.UUIDField()
 
 
+class ChallengeDispatchAssignmentSerializer(serializers.Serializer):
+    position = serializers.IntegerField(min_value=0)
+    question_id = serializers.UUIDField()
+
+
+class ChallengeDispatchSerializer(serializers.Serializer):
+    assignments = ChallengeDispatchAssignmentSerializer(many=True, min_length=1)
+
+
+class AttributeDispatchAssignmentSerializer(serializers.Serializer):
+    cell_id = serializers.UUIDField()
+    attribute_id = serializers.UUIDField()
+
+
+class AttributeDispatchSerializer(serializers.Serializer):
+    assignments = AttributeDispatchAssignmentSerializer(many=True)
+
+
 class StealAttributeSerializer(serializers.ModelSerializer):
     class Meta:
         model = StealAttribute

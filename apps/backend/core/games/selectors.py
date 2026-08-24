@@ -18,8 +18,7 @@ def eligible_questions_for_episode(episode):
         else:
             exclude_query |= ~config.query
 
-    if not has_select_rule:
-        return Question.objects.none()
-
-    queryset = Question.objects.filter(is_active=True).filter(select_query)
+    queryset = Question.objects.filter(is_active=True)
+    if has_select_rule:
+        queryset = queryset.filter(select_query)
     return queryset.exclude(exclude_query).prefetch_related("answers__proposition")

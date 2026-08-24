@@ -5,15 +5,19 @@ from django.db import IntegrityError
 from django.urls import reverse
 from rest_framework.test import APIClient
 
+from core.challenges.models import Challenge
 from core.games.models import Episode
 from core.games.models import EpisodeQuestion
 from core.games.models import Participant
 from core.games.models import QueryConfig
 from core.games.models import StealAttribute
 from core.grid.models import Cell
+from core.grid.models import CellAttribute
 from core.grid.models import Grid
 from core.helpers.functional import USERNAME_ALPHABET
 from core.helpers.functional import generate_username
+from core.qa.models import Answer
+from core.qa.models import Proposition
 from core.qa.models import Question
 from core.users.tests.factories import UserFactory
 
@@ -248,6 +252,25 @@ def test_staff_can_select_questions_matching_episode_rules(api_client):
     assert selected_response.data["results"][0]["is_selected"]
 
 
+def test_episode_question_pool_uses_the_library_without_rules(api_client):
+    staff_user = UserFactory.create(is_staff=True)
+    episode = Episode.objects.create(title="Épisode 1")
+    question = Question.objects.create(
+        label="Question sans règle",
+        slug="question-sans-regle",
+        level=Question.Level.WOOD,
+    )
+    api_client.force_authenticate(staff_user)
+
+    response = api_client.get(
+        reverse("api:episode-questions", kwargs={"pk": episode.pk}),
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.data["eligible_count"] == 1
+    assert response.data["results"][0]["id"] == str(question.pk)
+
+
 def test_staff_can_manage_episode_steal_attributes(api_client):
     staff_user = UserFactory.create(is_staff=True)
     episode = Episode.objects.create(title="Épisode 1")
@@ -341,3 +364,84 @@ def test_grid_configuration_requires_one_label_per_coordinate(api_client):
 
     assert response.status_code == HTTPStatus.BAD_REQUEST
     assert "coordinate_format" in response.data["metadata"]
+
+
+def test_staff_can_confirm_challenge_and_attribute_dispatches(api_client):
+    staff_user = UserFactory.create(is_staff=True)
+    episode = Episode.objects.create(
+        title="Épisode 1",
+        metadata={
+            "grid_config": {
+                "rows": 1,
+                "columns": 2,
+                "empty_cell_count": 0,
+                "point_distribution": {"1": 1, "2": 1, "3": 0, "4": 0, "5": 0},
+                "coordinate_format": {"x": "A", "y": "1,2"},
+            },
+        },
+    )
+    questions = [
+        Question.objects.create(
+            label=f"Question {level}",
+            slug=f"question-{level}",
+            level=level,
+            tags=["dispatch"],
+        )
+        for level in (Question.Level.WOOD, Question.Level.STONE)
+    ]
+    for question in questions:
+        proposition = Proposition.objects.create(
+            answer=f"Réponse {question.level}",
+            slug=f"reponse-{question.level}",
+        )
+        Answer.objects.create(
+            question=question,
+            proposition=proposition,
+            is_correct=True,
+        )
+        EpisodeQuestion.objects.create(episode=episode, question=question)
+    QueryConfig.objects.create(
+        episode=episode,
+        mode=QueryConfig.Mode.SELECT,
+        level=[Question.Level.WOOD, Question.Level.STONE],
+    )
+    StealAttribute.objects.create(episode=episode)
+    api_client.force_authenticate(staff_user)
+
+    challenge_response = api_client.post(
+        reverse("api:episode-challenge-dispatch", kwargs={"pk": episode.pk}),
+        {
+            "assignments": [
+                {"position": 0, "question_id": str(questions[0].pk)},
+                {"position": 1, "question_id": str(questions[1].pk)},
+            ],
+        },
+        format="json",
+    )
+
+    assert challenge_response.status_code == HTTPStatus.CREATED
+    grid = Grid.objects.get(episode=episode)
+    assert grid.state == Grid.GridState.POSITIONS_DRAWN
+    challenges = Challenge.objects.filter(episode=episode).order_by("gain")
+    assert challenges.count() == len(questions)
+    assert list(challenges.values_list("gain", flat=True)) == [1, 2]
+
+    attribute = StealAttribute.objects.get(episode=episode)
+    challenge_cell = grid.cells.filter(challenge__isnull=False).first()
+    attribute_response = api_client.post(
+        reverse("api:episode-attribute-dispatch", kwargs={"pk": episode.pk}),
+        {
+            "assignments": [
+                {
+                    "cell_id": str(challenge_cell.pk),
+                    "attribute_id": str(attribute.pk),
+                },
+            ],
+        },
+        format="json",
+    )
+
+    assert attribute_response.status_code == HTTPStatus.OK
+    grid.refresh_from_db()
+    assert grid.state == Grid.GridState.ATTRIBUTES_DRAWN
+    assert CellAttribute.objects.filter(attribut=attribute).exists()

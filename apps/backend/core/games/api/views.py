@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
+from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django_fsm import can_proceed
 from rest_framework import status
@@ -19,11 +20,15 @@ from core.games.selectors import eligible_questions_for_episode
 from core.games.services import select_episode_question
 from core.grid.models import Cell
 from core.grid.models import Grid
+from core.grid.services import save_attribute_dispatch
+from core.grid.services import save_challenge_dispatch
 from core.qa.api.filters import QuestionFilter
 from core.qa.api.serializers import QuestionSerializer
 
 from .filters import EpisodeFilter
 from .filters import ParticipantFilter
+from .serializers import AttributeDispatchSerializer
+from .serializers import ChallengeDispatchSerializer
 from .serializers import CoordinateFormatSerializer
 from .serializers import EpisodeQuestionSelectionSerializer
 from .serializers import EpisodeSerializer
@@ -70,8 +75,17 @@ class EpisodeViewSet(viewsets.ModelViewSet):
 
         return Response(EpisodeSerializer(episode).data)
 
-    @action(detail=True, methods=["post", "delete"], url_path="grid", url_name="grid")
+    @action(
+        detail=True,
+        methods=["get", "post", "delete"],
+        url_path="grid",
+        url_name="grid",
+    )
     def grid(self, request, pk=None):
+        if request.method == "GET":
+            grid = get_object_or_404(Grid, episode_id=pk)
+            return Response(self._serialize_grid(grid))
+
         with transaction.atomic():
             episode = Episode.objects.select_for_update().get(pk=pk)
             if episode.state != Episode.State.PENDING:
@@ -117,6 +131,67 @@ class EpisodeViewSet(viewsets.ModelViewSet):
             )
 
         return Response(self._serialize_grid(grid), status=status.HTTP_201_CREATED)
+
+    @action(
+        detail=True,
+        methods=["get"],
+        url_path="selected-questions",
+        url_name="selected-questions",
+    )
+    def selected_questions(self, request, pk=None):
+        episode = self.get_object()
+        questions = (
+            eligible_questions_for_episode(episode)
+            .filter(episode_selections__episode=episode)
+            .order_by("level", "label")
+            .distinct()
+        )
+        return Response(QuestionSerializer(questions, many=True).data)
+
+    @action(
+        detail=True,
+        methods=["post"],
+        url_path="challenge-dispatch",
+        url_name="challenge-dispatch",
+    )
+    def challenge_dispatch(self, request, pk=None):
+        episode = self.get_object()
+        self._ensure_not_ended(episode)
+        config_serializer = GridConfigSerializer(
+            data=episode.metadata.get("grid_config"),
+        )
+        config_serializer.is_valid(raise_exception=True)
+        serializer = ChallengeDispatchSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        try:
+            grid = save_challenge_dispatch(
+                episode_id=episode.pk,
+                config=config_serializer.validated_data,
+                assignments=serializer.validated_data["assignments"],
+            )
+        except DjangoValidationError as error:
+            raise ValidationError(error.message_dict) from error
+        return Response(self._serialize_grid(grid), status=status.HTTP_201_CREATED)
+
+    @action(
+        detail=True,
+        methods=["post"],
+        url_path="attribute-dispatch",
+        url_name="attribute-dispatch",
+    )
+    def attribute_dispatch(self, request, pk=None):
+        episode = self.get_object()
+        self._ensure_not_ended(episode)
+        serializer = AttributeDispatchSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        try:
+            grid = save_attribute_dispatch(
+                episode_id=episode.pk,
+                assignments=serializer.validated_data["assignments"],
+            )
+        except DjangoValidationError as error:
+            raise ValidationError(error.message_dict) from error
+        return Response(self._serialize_grid(grid))
 
     @action(
         detail=True,
@@ -187,16 +262,27 @@ class EpisodeViewSet(viewsets.ModelViewSet):
             for question in serialized_questions
         ]
         eligible_count = eligible_questions.count()
+        selected_by_level = {
+            str(item["question__level"]): item["count"]
+            for item in EpisodeQuestion.objects.filter(
+                episode=episode,
+                question__in=eligible_questions,
+            )
+            .values("question__level")
+            .annotate(count=Count("id"))
+        }
 
         if page is not None:
             response = self.get_paginated_response(results)
             response.data["eligible_count"] = eligible_count
             response.data["selected_count"] = len(selected_ids)
+            response.data["selected_by_level"] = selected_by_level
             return response
         return Response(
             {
                 "eligible_count": eligible_count,
                 "selected_count": len(selected_ids),
+                "selected_by_level": selected_by_level,
                 "results": results,
             },
         )
@@ -370,6 +456,7 @@ class EpisodeViewSet(viewsets.ModelViewSet):
             return Response(serializer_class(queryset, many=True).data)
 
         EpisodeViewSet._ensure_not_ended(episode)
+        EpisodeViewSet._ensure_attributes_editable(episode)
         serializer = serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         attribute = serializer.save(episode=episode)
@@ -392,6 +479,7 @@ class EpisodeViewSet(viewsets.ModelViewSet):
             return Response(serializer_class(attribute).data)
 
         EpisodeViewSet._ensure_not_ended(episode)
+        EpisodeViewSet._ensure_attributes_editable(episode)
         if request.method == "DELETE":
             attribute.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
@@ -416,6 +504,16 @@ class EpisodeViewSet(viewsets.ModelViewSet):
             raise PermissionDenied(message)
 
     @staticmethod
+    def _ensure_attributes_editable(episode):
+        try:
+            grid = episode.grid
+        except Grid.DoesNotExist:
+            return
+        if grid.state == Grid.GridState.ATTRIBUTES_DRAWN:
+            message = "Attributes are locked after their confirmed dispatch."
+            raise PermissionDenied(message)
+
+    @staticmethod
     def _serialize_grid(grid):
         return {
             "id": grid.pk,
@@ -423,4 +521,14 @@ class EpisodeViewSet(viewsets.ModelViewSet):
             "columns": grid.columns,
             "empty_cell_count": grid.empty_cell_count,
             "point_distribution": grid.point_distribution,
+            "state": grid.state,
+            "cells": list(
+                grid.cells.order_by("x", "y").values(
+                    "id",
+                    "name",
+                    "x",
+                    "y",
+                    "challenge_id",
+                ),
+            ),
         }

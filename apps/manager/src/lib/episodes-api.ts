@@ -54,6 +54,23 @@ export type CreateQuestionPayload = {
 	answers: Array<Pick<Answer, 'answer' | 'is_correct'>>;
 };
 export type QueryConfig = { id: string; join: 'and' | 'or'; mode: 'select' | 'unselect'; tags: string[] | null; level: number[] | null };
+export type SpecialAttribute = {
+	id: string;
+	is_active: boolean;
+	type: 'steal' | 'prize';
+	name?: string;
+	description?: string | null;
+};
+export type GridCell = { id: string; name: string; x: number; y: number; challenge_id: string | null };
+export type PreparedGrid = {
+	id: string;
+	rows: number;
+	columns: number;
+	empty_cell_count: number;
+	point_distribution: Record<string, number>;
+	state: 'configured' | 'positions_drawn' | 'attributes_drawn';
+	cells: GridCell[];
+};
 export type EpisodeQuestion = Question & { is_selected: boolean };
 export type PaginatedEpisodeQuestions = {
 	count: number;
@@ -62,6 +79,7 @@ export type PaginatedEpisodeQuestions = {
 	results: EpisodeQuestion[];
 	eligible_count: number;
 	selected_count: number;
+	selected_by_level: Record<string, number>;
 };
 
 export type PaginatedEpisodes = {
@@ -229,6 +247,15 @@ export async function deleteQueryConfig(episodeId: string, id: string) { await r
 export function getEpisodeQuestions(episodeId: string, parameters = new URLSearchParams()) { const query = parameters.size ? `?${parameters.toString()}` : ''; return request<PaginatedEpisodeQuestions>(`/api/episodes/${episodeId}/questions/${query}`, {}, 'Impossible de charger les questions de cet épisode.'); }
 export function selectEpisodeQuestion(episodeId: string, questionId: string) { return request<{ question_id: string }>(`/api/episodes/${episodeId}/questions/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question_id: questionId }) }, 'Impossible de sélectionner cette question.'); }
 export async function unselectEpisodeQuestion(episodeId: string, questionId: string) { await request<void>(`/api/episodes/${episodeId}/questions/${questionId}/`, { method: 'DELETE' }, 'Impossible de retirer cette question.'); }
+export function getSelectedEpisodeQuestions(episodeId: string) { return request<Question[]>(`/api/episodes/${episodeId}/selected-questions/`, {}, 'Impossible de charger les questions retenues.'); }
+export function getPreparedGrid(episodeId: string) { return request<PreparedGrid>(`/api/episodes/${episodeId}/grid/`, {}, 'Impossible de charger la grille préparée.'); }
+export function saveChallengeDispatch(episodeId: string, assignments: Array<{ position: number; question_id: string }>) { return request<PreparedGrid>(`/api/episodes/${episodeId}/challenge-dispatch/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ assignments }) }, 'Impossible d’enregistrer la répartition des challenges.'); }
+export function saveAttributeDispatch(episodeId: string, assignments: Array<{ cell_id: string; attribute_id: string }>) { return request<PreparedGrid>(`/api/episodes/${episodeId}/attribute-dispatch/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ assignments }) }, 'Impossible d’enregistrer la répartition des attributs.'); }
+export function getStealAttributes(episodeId: string) { return request<Array<Omit<SpecialAttribute, 'type'>>>(`/api/episodes/${episodeId}/steal-attributes/`, {}, 'Impossible de charger les attributs spéciaux.').then((items) => items.map((item) => ({ ...item, type: 'steal' as const }))); }
+export function getPrizeAttributes(episodeId: string) { return request<Array<Omit<SpecialAttribute, 'type'>>>(`/api/episodes/${episodeId}/prize-attributes/`, {}, 'Impossible de charger les attributs spéciaux.').then((items) => items.map((item) => ({ ...item, type: 'prize' as const }))); }
+export function createStealAttribute(episodeId: string) { return request<Omit<SpecialAttribute, 'type'>>(`/api/episodes/${episodeId}/steal-attributes/`, { method: 'POST' }, 'Impossible d’ajouter cet attribut.').then((item) => ({ ...item, type: 'steal' as const })); }
+export function createPrizeAttribute(episodeId: string, payload: Pick<SpecialAttribute, 'name' | 'description'>) { return request<Omit<SpecialAttribute, 'type'>>(`/api/episodes/${episodeId}/prize-attributes/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }, 'Impossible d’ajouter ce lot.').then((item) => ({ ...item, type: 'prize' as const })); }
+export async function deleteSpecialAttribute(episodeId: string, attribute: SpecialAttribute) { const collection = attribute.type === 'steal' ? 'steal-attributes' : 'prize-attributes'; await request<void>(`/api/episodes/${episodeId}/${collection}/${attribute.id}/`, { method: 'DELETE' }, 'Impossible de supprimer cet attribut.'); }
 
 export function episodeStateLabel(state: EpisodeState) {
 	return { pending: 'À préparer', start: 'En cours', end: 'Terminé' }[state];
