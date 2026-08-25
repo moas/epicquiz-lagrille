@@ -49,11 +49,20 @@
 		return `${x[Math.floor(position / config.columns)]}${y[position % config.columns]}`;
 	}
 
+	function questionsForChallengeDraw() {
+		return Array.from({ length: 5 }, (_, index) => {
+			const level = index + 1;
+			const required = Number(config.point_distribution[String(level)] ?? 0);
+			return shuffle(questions.filter((question) => question.level === level)).slice(0, required);
+		}).flat();
+	}
+
 	function randomize() {
 		errorMessage = ''; isConfirming = false; drawNumber += 1;
 		if (mode === 'challenges') {
-			const positions = shuffle(Array.from({ length: config.rows * config.columns }, (_, index) => index)).slice(0, questions.length);
-			challengeAssignments = shuffle(questions).map((question, index) => ({ position: positions[index], question_id: question.id }));
+			const drawnQuestions = shuffle(questionsForChallengeDraw());
+			const positions = shuffle(Array.from({ length: config.rows * config.columns }, (_, index) => index)).slice(0, drawnQuestions.length);
+			challengeAssignments = drawnQuestions.map((question, index) => ({ position: positions[index], question_id: question.id }));
 			return;
 		}
 		const candidates = shuffle(cells.filter((cell) => cell.challenge_id));

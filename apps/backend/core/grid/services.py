@@ -11,7 +11,6 @@ from django.db import transaction
 
 from core.challenges.models import Challenge
 from core.games.models import Episode
-from core.games.models import EpisodeQuestion
 from core.games.models import SpecialAttribute
 from core.games.selectors import eligible_questions_for_episode
 
@@ -61,16 +60,6 @@ def _selected_questions_for_dispatch(*, episode: Episode, question_ids: list[Any
     if len(selected_questions) != len(question_ids):
         _configuration_error(
             "Every dispatched question must still be selected for this episode.",
-        )
-    selected_ids = set(
-        EpisodeQuestion.objects.filter(
-            episode=episode,
-            question__in=eligible_questions,
-        ).values_list("question_id", flat=True),
-    )
-    if selected_ids != set(question_ids):
-        _configuration_error(
-            "The dispatch must contain all selected questions, exactly once.",
         )
     return selected_questions
 

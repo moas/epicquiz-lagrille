@@ -400,6 +400,22 @@ def test_staff_can_confirm_challenge_and_attribute_dispatches(api_client):
             is_correct=True,
         )
         EpisodeQuestion.objects.create(episode=episode, question=question)
+    extra_question = Question.objects.create(
+        label="Question en réserve",
+        slug="question-en-reserve",
+        level=Question.Level.WOOD,
+        tags=["dispatch"],
+    )
+    extra_proposition = Proposition.objects.create(
+        answer="Réponse en réserve",
+        slug="reponse-en-reserve",
+    )
+    Answer.objects.create(
+        question=extra_question,
+        proposition=extra_proposition,
+        is_correct=True,
+    )
+    EpisodeQuestion.objects.create(episode=episode, question=extra_question)
     QueryConfig.objects.create(
         episode=episode,
         mode=QueryConfig.Mode.SELECT,
@@ -425,6 +441,7 @@ def test_staff_can_confirm_challenge_and_attribute_dispatches(api_client):
     challenges = Challenge.objects.filter(episode=episode).order_by("gain")
     assert challenges.count() == len(questions)
     assert list(challenges.values_list("gain", flat=True)) == [1, 2]
+    assert not challenges.filter(question=extra_question).exists()
 
     attribute = StealAttribute.objects.get(episode=episode)
     challenge_cell = grid.cells.filter(challenge__isnull=False).first()
