@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import SpecialAttributesDialog from '$lib/SpecialAttributesDialog.svelte';
+	import { getPrizeAttributes, getStealAttributes, type SpecialAttribute } from '$lib/episodes-api';
 	import { ApiError, updateEpisode, type Episode, type GridConfig } from '$lib/episodes-api';
 
-	let { episode, onclose, onconfigured }: { episode: Episode; onclose: () => void; onconfigured: (episode: Episode) => void } = $props();
+	let { episode, attributesLocked = false, onclose, onconfigured, onattributeschange }: { episode: Episode; attributesLocked?: boolean; onclose: () => void; onconfigured: (episode: Episode) => void; onattributeschange?: (attributes: SpecialAttribute[]) => void } = $props();
 
 	function initialConfig() {
 		return episode.metadata.grid_config;
@@ -15,6 +18,9 @@
 	let isSaving = $state(false);
 	let formError = $state('');
 	let distributionError = $state('');
+	let specialAttributes = $state<SpecialAttribute[]>([]);
+	let isManagingAttributes = $state(false);
+	let attributesError = $state('');
 
 	const cellCount = $derived(rows * columns);
 	const playableCells = $derived(cellCount - emptyCellCount);
@@ -81,6 +87,15 @@
 		return !distributionError;
 	}
 
+	async function loadAttributes() {
+		try {
+			specialAttributes = (await Promise.all([getStealAttributes(episode.id), getPrizeAttributes(episode.id)])).flat();
+			onattributeschange?.(specialAttributes);
+		} catch (error) {
+			attributesError = error instanceof Error ? error.message : 'Impossible de charger les attributs spéciaux.';
+		}
+	}
+
 	async function save() {
 		if (!validate()) return;
 
@@ -105,6 +120,8 @@
 	$effect(() => {
 		if (emptyCellCount > cellCount - 1) emptyCellCount = Math.max(0, cellCount - 1);
 	});
+
+	onMount(() => { void loadAttributes(); });
 </script>
 
 <div class="backdrop" role="presentation" onclick={(event) => event.currentTarget === event.target && !isSaving && onclose()}>
@@ -114,12 +131,17 @@
 		<form onsubmit={(event) => { event.preventDefault(); void save(); }}>
 			<div class="dimensions"><label for="grid-rows">Lignes<input id="grid-rows" type="number" min="1" max="99" bind:value={rows} disabled={isSaving} onblur={validate} /></label><label for="grid-columns">Colonnes<input id="grid-columns" type="number" min="1" max="99" bind:value={columns} disabled={isSaving} onblur={validate} /></label><label for="grid-empty">Cases vides<input id="grid-empty" type="number" min="0" max={Math.max(0, cellCount - 1)} bind:value={emptyCellCount} disabled={isSaving} onblur={validate} /></label></div>
 			<section class="distribution" aria-labelledby="points-title"><div class="distribution-heading"><div><h3 id="points-title">Répartition par points</h3><p><strong>{distributedCells} / {playableCells} cases attribuées</strong> · maximum : <strong>{totalPoints} / 100 points</strong>.</p></div><button class="generate" type="button" disabled={isSaving} onclick={generateDistribution}>Générer une répartition</button></div><div class="point-inputs">{#each ['1', '2', '3', '4', '5'] as points}<label for={`points-${points}`}><span>{points} pts</span><input id={`points-${points}`} type="number" min="0" bind:value={distribution[points]} disabled={isSaving} onblur={validate} /></label>{/each}</div>{#if distributionError}<p class="field-error" role="alert">{distributionError}</p>{/if}</section>
+			<section class="attributes" aria-labelledby="attributes-title"><div><p class="section-label">Mécaniques et récompenses</p><h3 id="attributes-title">Attributs spéciaux</h3><p>{attributesLocked ? 'Le tirage est confirmé : la définition est conservée pour préserver la session.' : 'Définissez les vols et les lots qui pourront être tirés sur les cases, après les challenges.'}</p></div><div class="attribute-summary"><strong>{specialAttributes.filter((attribute) => attribute.is_active).length}</strong><span>actif{specialAttributes.filter((attribute) => attribute.is_active).length === 1 ? '' : 's'}</span></div><button class="manage-attributes" type="button" disabled={isSaving} onclick={() => isManagingAttributes = true}>{attributesLocked ? 'Voir' : 'Configurer'} <span aria-hidden="true">→</span></button></section>
+			{#if attributesError}<p class="field-error" role="alert">{attributesError}</p>{/if}
 			{#if formError}<p class="form-error" role="alert">{formError}</p>{/if}
 			<div class="actions"><button class="cancel" type="button" disabled={isSaving} onclick={onclose}>Annuler</button><button class="submit" type="submit" disabled={isSaving}>{isSaving ? 'Enregistrement…' : 'Enregistrer la grille'}</button></div>
 		</form>
 	</dialog>
 </div>
+{#if isManagingAttributes}
+	<SpecialAttributesDialog episodeId={episode.id} locked={attributesLocked} onclose={() => { isManagingAttributes = false; void loadAttributes(); }} onchange={(attributes) => { specialAttributes = attributes; onattributeschange?.(attributes); }} />
+{/if}
 
 <style>
-	.backdrop { position:fixed; z-index:20; inset:0; display:grid; place-items:center; padding:1rem; background:rgba(2,6,23,.7); backdrop-filter:blur(6px); }.dialog { width:min(100%,40rem); max-height:calc(100dvh - 2rem); overflow:auto; border:1px solid #475569; border-radius:1rem; padding:clamp(1.25rem,4vw,2rem); background:#1e293b; color:#f8fafc; box-shadow:0 1.5rem 5rem rgba(0,0,0,.42); }.heading { display:flex; justify-content:space-between; gap:1rem; }.eyebrow { margin:0 0 .45rem; color:#c4b5fd; font-size:.7rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }.heading h2 { margin:0; color:#f8fafc; font-size:1.55rem; letter-spacing:-.045em; }.close { width:2.75rem; height:2.75rem; flex:none; border:1px solid #475569; border-radius:.65rem; background:transparent; color:#cbd5e1; cursor:pointer; font-size:1.6rem; }.close:hover { border-color:#94a3b8; color:#f8fafc; }.intro { margin:1rem 0 1.5rem; color:#cbd5e1; font-size:.85rem; line-height:1.55; }.intro strong { color:#ddd6fe; font-weight:650; }.dimensions,.point-inputs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; }.dimensions label,.point-inputs label { color:#f8fafc; font-size:.8rem; font-weight:750; }.dimensions input,.point-inputs input { width:100%; min-height:2.7rem; margin-top:.45rem; border:1px solid #475569; border-radius:.55rem; padding:0 .65rem; background:#0f172a; color:#f8fafc; font:inherit; }.dimensions input:focus,.point-inputs input:focus { border-color:#a78bfa; outline:3px solid rgba(167,139,250,.24); }.distribution { margin-top:1.5rem; border:1px solid #334155; border-radius:.8rem; padding:1rem; background:#17213a; }.distribution-heading { display:flex; align-items:start; justify-content:space-between; gap:1rem; }.distribution h3 { margin:0 0 .25rem; color:#f8fafc; font-size:.95rem; }.distribution p { margin:0 0 1rem; color:#94a3b8; font-size:.78rem; }.generate { min-height:2.45rem; flex:none; border:1px solid #7c3aed; border-radius:.55rem; padding:.5rem .7rem; background:rgba(124,58,237,.16); color:#ddd6fe; cursor:pointer; font:inherit; font-size:.76rem; font-weight:800; }.generate:hover { background:rgba(124,58,237,.28); }.point-inputs label { display:flex; align-items:center; justify-content:space-between; gap:.5rem; }.point-inputs input { width:4.4rem; margin:0; }.field-error,.form-error { margin:1rem 0 0; color:#fecaca; font-size:.8rem; line-height:1.45; }.actions { display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.5rem; }.actions button { min-height:2.8rem; border-radius:.6rem; padding:.7rem 1rem; cursor:pointer; font:inherit; font-size:.85rem; font-weight:750; }.cancel { border:1px solid #475569; background:transparent; color:#cbd5e1; }.submit { border:1px solid #7c3aed; background:#7c3aed; color:#fff; }.cancel:hover { border-color:#94a3b8; color:#f8fafc; }.submit:hover { background:#8b5cf6; }.actions button:disabled,.close:disabled,.generate:disabled { cursor:not-allowed; opacity:.6; }.close:focus-visible,.actions button:focus-visible,.generate:focus-visible { outline:3px solid #a78bfa; outline-offset:3px; } @media (max-width:520px) { .dimensions,.point-inputs { grid-template-columns:1fr; }.distribution-heading { align-items:stretch; flex-direction:column; }.generate { width:100%; }.point-inputs label { min-height:2.75rem; }.actions { flex-direction:column-reverse; }.actions button { width:100%; } }
+	.backdrop { position:fixed; z-index:20; inset:0; display:grid; place-items:center; padding:1rem; background:rgba(2,6,23,.7); backdrop-filter:blur(6px); }.dialog { width:min(100%,40rem); max-height:calc(100dvh - 2rem); overflow:auto; border:1px solid #475569; border-radius:1rem; padding:clamp(1.25rem,4vw,2rem); background:#1e293b; color:#f8fafc; box-shadow:0 1.5rem 5rem rgba(0,0,0,.42); }.heading { display:flex; justify-content:space-between; gap:1rem; }.eyebrow,.section-label { margin:0 0 .45rem; color:#c4b5fd; font-size:.7rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }.heading h2 { margin:0; color:#f8fafc; font-size:1.55rem; letter-spacing:-.045em; }.close { width:2.75rem; height:2.75rem; flex:none; border:1px solid #475569; border-radius:.65rem; background:transparent; color:#cbd5e1; cursor:pointer; font-size:1.6rem; }.close:hover { border-color:#94a3b8; color:#f8fafc; }.intro { margin:1rem 0 1.5rem; color:#cbd5e1; font-size:.85rem; line-height:1.55; }.intro strong { color:#ddd6fe; font-weight:650; }.dimensions,.point-inputs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; }.dimensions label,.point-inputs label { color:#f8fafc; font-size:.8rem; font-weight:750; }.dimensions input,.point-inputs input { width:100%; min-height:2.7rem; margin-top:.45rem; border:1px solid #475569; border-radius:.55rem; padding:0 .65rem; background:#0f172a; color:#f8fafc; font:inherit; }.dimensions input:focus,.point-inputs input:focus { border-color:#a78bfa; outline:3px solid rgba(167,139,250,.24); }.distribution,.attributes { margin-top:1.5rem; border:1px solid #334155; border-radius:.8rem; padding:1rem; background:#17213a; }.distribution-heading { display:flex; align-items:start; justify-content:space-between; gap:1rem; }.distribution h3,.attributes h3 { margin:0 0 .25rem; color:#f8fafc; font-size:.95rem; }.distribution p,.attributes>div:first-child>p:last-child { margin:0 0 1rem; color:#94a3b8; font-size:.78rem; line-height:1.45; }.generate,.manage-attributes { min-height:2.45rem; flex:none; border:1px solid #7c3aed; border-radius:.55rem; padding:.5rem .7rem; background:rgba(124,58,237,.16); color:#ddd6fe; cursor:pointer; font:inherit; font-size:.76rem; font-weight:800; }.generate:hover,.manage-attributes:hover { background:rgba(124,58,237,.28); }.point-inputs label { display:flex; align-items:center; justify-content:space-between; gap:.5rem; }.point-inputs input { width:4.4rem; margin:0; }.attributes { display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:1rem; align-items:end; }.attributes>div:first-child>p:last-child { margin-bottom:0; }.attribute-summary { min-width:4.6rem; border:1px solid rgba(34,197,94,.35); border-radius:.6rem; padding:.45rem .6rem; background:rgba(34,197,94,.08); color:#bbf7d0; text-align:center; }.attribute-summary strong,.attribute-summary span { display:block; }.attribute-summary strong { font-size:1.05rem; }.attribute-summary span { font-size:.65rem; font-weight:750; }.field-error,.form-error { margin:1rem 0 0; color:#fecaca; font-size:.8rem; line-height:1.45; }.actions { display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.5rem; }.actions button { min-height:2.8rem; border-radius:.6rem; padding:.7rem 1rem; cursor:pointer; font:inherit; font-size:.85rem; font-weight:750; }.cancel { border:1px solid #475569; background:transparent; color:#cbd5e1; }.submit { border:1px solid #7c3aed; background:#7c3aed; color:#fff; }.cancel:hover { border-color:#94a3b8; color:#f8fafc; }.submit:hover { background:#8b5cf6; }.actions button:disabled,.close:disabled,.generate:disabled,.manage-attributes:disabled { cursor:not-allowed; opacity:.6; }.close:focus-visible,.actions button:focus-visible,.generate:focus-visible,.manage-attributes:focus-visible { outline:3px solid #a78bfa; outline-offset:3px; } @media (max-width:520px) { .dimensions,.point-inputs,.attributes { grid-template-columns:1fr; }.distribution-heading { align-items:stretch; flex-direction:column; }.generate,.manage-attributes { width:100%; }.point-inputs label { min-height:2.75rem; }.attribute-summary { text-align:left; }.actions { flex-direction:column-reverse; }.actions button { width:100%; } }
 </style>

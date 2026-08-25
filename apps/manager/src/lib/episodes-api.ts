@@ -2,6 +2,10 @@ import { sessionStore } from '$lib/auth';
 
 const apiBaseUrl = (import.meta.env.PUBLIC_API_URL ?? '').replace(/\/$/, '');
 
+export function assetUrl(path: string) {
+	return /^https?:\/\//.test(path) ? path : `${apiBaseUrl}${path}`;
+}
+
 export type EpisodeState = 'pending' | 'start' | 'end';
 
 export type Episode = {
@@ -60,6 +64,7 @@ export type SpecialAttribute = {
 	type: 'steal' | 'prize';
 	name?: string;
 	description?: string | null;
+	image?: string;
 };
 export type GridCell = { id: string; name: string; x: number; y: number; challenge_id: string | null };
 export type PreparedGrid = {
@@ -254,7 +259,7 @@ export function saveAttributeDispatch(episodeId: string, assignments: Array<{ ce
 export function getStealAttributes(episodeId: string) { return request<Array<Omit<SpecialAttribute, 'type'>>>(`/api/episodes/${episodeId}/steal-attributes/`, {}, 'Impossible de charger les attributs spéciaux.').then((items) => items.map((item) => ({ ...item, type: 'steal' as const }))); }
 export function getPrizeAttributes(episodeId: string) { return request<Array<Omit<SpecialAttribute, 'type'>>>(`/api/episodes/${episodeId}/prize-attributes/`, {}, 'Impossible de charger les attributs spéciaux.').then((items) => items.map((item) => ({ ...item, type: 'prize' as const }))); }
 export function createStealAttribute(episodeId: string) { return request<Omit<SpecialAttribute, 'type'>>(`/api/episodes/${episodeId}/steal-attributes/`, { method: 'POST' }, 'Impossible d’ajouter cet attribut.').then((item) => ({ ...item, type: 'steal' as const })); }
-export function createPrizeAttribute(episodeId: string, payload: Pick<SpecialAttribute, 'name' | 'description'>) { return request<Omit<SpecialAttribute, 'type'>>(`/api/episodes/${episodeId}/prize-attributes/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }, 'Impossible d’ajouter ce lot.').then((item) => ({ ...item, type: 'prize' as const })); }
+export function createPrizeAttribute(episodeId: string, payload: { name: string; description?: string; image: File }) { const formData = new FormData(); formData.append('name', payload.name); if (payload.description) formData.append('description', payload.description); formData.append('image', payload.image); return request<Omit<SpecialAttribute, 'type'>>(`/api/episodes/${episodeId}/prize-attributes/`, { method: 'POST', body: formData }, 'Impossible d’ajouter ce lot.').then((item) => ({ ...item, type: 'prize' as const })); }
 export async function deleteSpecialAttribute(episodeId: string, attribute: SpecialAttribute) { const collection = attribute.type === 'steal' ? 'steal-attributes' : 'prize-attributes'; await request<void>(`/api/episodes/${episodeId}/${collection}/${attribute.id}/`, { method: 'DELETE' }, 'Impossible de supprimer cet attribut.'); }
 
 export function episodeStateLabel(state: EpisodeState) {
