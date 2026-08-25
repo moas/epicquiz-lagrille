@@ -28,7 +28,9 @@ jobs:
 
   backend:
     needs: changes
-    if: needs.changes.outputs.backend == 'true'
+    if: >-
+      needs.changes.outputs.backend == 'true' ||
+      startsWith(github.ref, 'refs/tags/backend-v')
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -69,7 +71,9 @@ jobs:
 
   manager:
     needs: changes
-    if: needs.changes.outputs.manager == 'true'
+    if: >-
+      needs.changes.outputs.manager == 'true' ||
+      startsWith(github.ref, 'refs/tags/manager-v')
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -87,3 +91,73 @@ jobs:
         run: npm run check
       - name: Build manager
         run: npm run build
+
+  publish-backend:
+    needs: [changes, backend]
+    if: >-
+      github.event_name == 'push' &&
+      (needs.changes.outputs.backend == 'true' || startsWith(github.ref, 'refs/tags/backend-v')) &&
+      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/backend-v'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ${{ secrets.REGISTRY_ENDPOINT }}/lagrille/backend
+          tags: |
+            type=raw,value=dev,enable=${{ github.ref == 'refs/heads/develop' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=match,pattern=backend-v(.*),group=1
+            type=sha
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY_ENDPOINT }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWD }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: apps/backend
+          file: apps/backend/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  publish-manager:
+    needs: [changes, manager]
+    if: >-
+      github.event_name == 'push' &&
+      (needs.changes.outputs.manager == 'true' || startsWith(github.ref, 'refs/tags/manager-v')) &&
+      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/manager-v'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ${{ secrets.REGISTRY_ENDPOINT }}/lagrille/manager
+          tags: |
+            type=raw,value=dev,enable=${{ github.ref == 'refs/heads/develop' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=match,pattern=manager-v(.*),group=1
+            type=sha
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY_ENDPOINT }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWD }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: apps/manager
+          file: apps/manager/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
