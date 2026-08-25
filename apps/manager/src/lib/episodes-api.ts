@@ -24,6 +24,7 @@ export type GridConfig = {
 	rows: number;
 	columns: number;
 	empty_cell_count: number;
+	max_attrs_per_cell: number;
 	point_distribution: Record<string, number>;
 	coordinate_format: { x: string; y: string };
 };
@@ -72,6 +73,7 @@ export type PreparedGrid = {
 	rows: number;
 	columns: number;
 	empty_cell_count: number;
+	max_attrs_per_cell: number;
 	point_distribution: Record<string, number>;
 	state: 'configured' | 'positions_drawn' | 'attributes_drawn';
 	cells: GridCell[];
@@ -254,11 +256,16 @@ export function selectEpisodeQuestion(episodeId: string, questionId: string) { r
 export async function unselectEpisodeQuestion(episodeId: string, questionId: string) { await request<void>(`/api/episodes/${episodeId}/questions/${questionId}/`, { method: 'DELETE' }, 'Impossible de retirer cette question.'); }
 export function getSelectedEpisodeQuestions(episodeId: string) { return request<Question[]>(`/api/episodes/${episodeId}/selected-questions/`, {}, 'Impossible de charger les questions retenues.'); }
 export function getPreparedGrid(episodeId: string) { return request<PreparedGrid>(`/api/episodes/${episodeId}/grid/`, {}, 'Impossible de charger la grille préparée.'); }
+export async function deletePreparedGrid(episodeId: string) { await request<void>(`/api/episodes/${episodeId}/grid/`, { method: 'DELETE' }, 'Impossible de supprimer la grille.'); }
 export function saveChallengeDispatch(episodeId: string, assignments: Array<{ position: number; question_id: string }>) { return request<PreparedGrid>(`/api/episodes/${episodeId}/challenge-dispatch/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ assignments }) }, 'Impossible d’enregistrer la répartition des challenges.'); }
 export function saveAttributeDispatch(episodeId: string, assignments: Array<{ cell_id: string; attribute_id: string }>) { return request<PreparedGrid>(`/api/episodes/${episodeId}/attribute-dispatch/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ assignments }) }, 'Impossible d’enregistrer la répartition des attributs.'); }
 export function getStealAttributes(episodeId: string) { return request<Array<Omit<SpecialAttribute, 'type'>>>(`/api/episodes/${episodeId}/steal-attributes/`, {}, 'Impossible de charger les attributs spéciaux.').then((items) => items.map((item) => ({ ...item, type: 'steal' as const }))); }
 export function getPrizeAttributes(episodeId: string) { return request<Array<Omit<SpecialAttribute, 'type'>>>(`/api/episodes/${episodeId}/prize-attributes/`, {}, 'Impossible de charger les attributs spéciaux.').then((items) => items.map((item) => ({ ...item, type: 'prize' as const }))); }
+export function getEpisodeReadiness(episodeId: string) { return request<{ grid_locked: boolean; missing_roles: string[]; can_start: boolean }>(`/api/episodes/${episodeId}/readiness/`, {}, 'Impossible de vérifier si l’épisode peut démarrer.'); }
+export function getSpecialAttributesSummary(episodeId: string) { return request<{ active_count: number; total_count: number }>(`/api/episodes/${episodeId}/special-attributes-summary/`, {}, 'Impossible de charger le nombre d’attributs spéciaux.'); }
 export function createStealAttribute(episodeId: string) { return request<Omit<SpecialAttribute, 'type'>>(`/api/episodes/${episodeId}/steal-attributes/`, { method: 'POST' }, 'Impossible d’ajouter cet attribut.').then((item) => ({ ...item, type: 'steal' as const })); }
+export function startEpisode(episodeId: string) { return request<Episode>(`/api/episodes/${episodeId}/start/`, { method: 'POST' }, 'Impossible de lancer l’épisode.'); }
+export function endEpisode(episodeId: string) { return request<Episode>(`/api/episodes/${episodeId}/end/`, { method: 'POST' }, 'Impossible d’arrêter l’épisode.'); }
 export function createPrizeAttribute(episodeId: string, payload: { name: string; description?: string; image: File }) { const formData = new FormData(); formData.append('name', payload.name); if (payload.description) formData.append('description', payload.description); formData.append('image', payload.image); return request<Omit<SpecialAttribute, 'type'>>(`/api/episodes/${episodeId}/prize-attributes/`, { method: 'POST', body: formData }, 'Impossible d’ajouter ce lot.').then((item) => ({ ...item, type: 'prize' as const })); }
 export async function deleteSpecialAttribute(episodeId: string, attribute: SpecialAttribute) { const collection = attribute.type === 'steal' ? 'steal-attributes' : 'prize-attributes'; await request<void>(`/api/episodes/${episodeId}/${collection}/${attribute.id}/`, { method: 'DELETE' }, 'Impossible de supprimer cet attribut.'); }
 

@@ -114,6 +114,7 @@ def save_challenge_dispatch(
         columns=config["columns"],
         empty_cell_count=config["empty_cell_count"],
         point_distribution=config["point_distribution"],
+        max_attrs_per_cell=config["max_attrs_per_cell"],
     )
     questions_by_id = {question.pk: question for question in selected_questions}
     challenges_by_position: dict[int, Challenge] = {}
@@ -170,11 +171,8 @@ def save_attribute_dispatch(
 
     attribute_ids = [assignment["attribute_id"] for assignment in assignments]
     cell_ids = [assignment["cell_id"] for assignment in assignments]
-    if (
-        len(set(attribute_ids)) != len(attribute_ids)
-        or len(set(cell_ids)) != len(cell_ids)
-    ):
-        _configuration_error("Each attribute and each cell can only be used once.")
+    if len(set(attribute_ids)) != len(attribute_ids):
+        _configuration_error("Each attribute can only be used once.")
 
     active_attribute_ids = set(
         SpecialAttribute.objects.select_for_update()
@@ -193,6 +191,10 @@ def save_attribute_dispatch(
     )
     if not set(cell_ids).issubset(candidate_cell_ids):
         _configuration_error("Attributes can only be assigned to challenge cells.")
+    if any(count > grid.max_attrs_per_cell for count in Counter(cell_ids).values()):
+        _configuration_error(
+            "A cell cannot receive more attributes than the configured limit.",
+        )
 
     CellAttribute.objects.bulk_create(
         [

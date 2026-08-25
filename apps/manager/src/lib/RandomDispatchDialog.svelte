@@ -34,6 +34,7 @@
 	const isChallenge = $derived(mode === 'challenges');
 	const shuffledAttributes = $derived(attributeAssignments.map((assignment) => ({ assignment, attribute: attributes.find((attribute) => attribute.id === assignment.attribute_id)!, cell: cells.find((cell) => cell.id === assignment.cell_id)! })));
 	const activeAttributes = $derived(attributes.filter((attribute) => attribute.is_active));
+	const isLockingWithoutAttributes = $derived(!isChallenge && activeAttributes.length === 0);
 
 	function shuffle<T>(items: T[]) {
 		const result = [...items];
@@ -66,8 +67,12 @@
 			challengeAssignments = drawnQuestions.map((question, index) => ({ position: positions[index], question_id: question.id }));
 			return;
 		}
-		const candidates = shuffle(cells.filter((cell) => cell.challenge_id));
-		attributeAssignments = shuffle(activeAttributes).map((attribute, index) => ({ cell_id: candidates[index]?.id ?? '', attribute_id: attribute.id })).filter((assignment) => assignment.cell_id);
+		const slots = shuffle(
+			cells
+				.filter((cell) => cell.challenge_id)
+				.flatMap((cell) => Array.from({ length: config.max_attrs_per_cell }, () => cell)),
+		);
+		attributeAssignments = shuffle(activeAttributes).map((attribute, index) => ({ cell_id: slots[index]?.id ?? '', attribute_id: attribute.id })).filter((assignment) => assignment.cell_id);
 	}
 
 	onMount(randomize);
@@ -87,13 +92,13 @@
 <div class="backdrop" role="presentation" onclick={(event) => event.currentTarget === event.target && !isSaving && onclose()}>
 	<dialog class="dialog" open aria-labelledby="dispatch-title">
 		<header><div><p class="eyebrow">Tirage aléatoire · essai {drawNumber}</p><h2 id="dispatch-title">{isChallenge ? 'Répartir les challenges' : 'Attribuer les attributs'}</h2></div><button class="close" type="button" aria-label="Fermer" disabled={isSaving} onclick={onclose}>×</button></header>
-		<p class="intro">{isChallenge ? 'Cette proposition associe toutes les questions retenues à des cases, sans modifier la grille tant que vous ne la confirmez pas.' : 'Cette proposition pose chaque attribut actif sur une case contenant un challenge. Rien n’est enregistré avant confirmation.'}</p>
+		<p class="intro">{isChallenge ? 'Cette proposition associe toutes les questions retenues à des cases, sans modifier la grille tant que vous ne la confirmez pas.' : isLockingWithoutAttributes ? 'Aucun lot ni attribut actif n’est défini. Vous pouvez néanmoins confirmer cette étape pour verrouiller définitivement les cases.' : 'Cette proposition pose chaque attribut actif sur une case contenant un challenge. Rien n’est enregistré avant confirmation.'}</p>
 		{#if isChallenge}
 			<section class="dispatch-grid" style={`--columns:${config.columns}`} aria-label="Prévisualisation des challenges">{#each Array(config.rows * config.columns) as _, position}{@const assignment = challengeAssignments.find((item) => item.position === position)}{@const question = assignment ? questions.find((item) => item.id === assignment.question_id) : null}<article class:empty={!assignment}><span>{coordinateFor(position)}</span>{#if question}<strong>Niv. {question.level}</strong><small>{question.question}</small>{:else}<em>Case vide</em>{/if}</article>{/each}</section>
-		{:else if !activeAttributes.length}<section class="empty-state"><h3>Aucun attribut actif</h3><p>Ajoutez au moins un vol ou un lot avant de lancer une attribution.</p></section>
+		{:else if isLockingWithoutAttributes}<section class="empty-state locking"><h3>Verrouiller sans attribut</h3><p>La grille sera finalisée sans lot ni mécanique spéciale. Pour modifier ensuite les cases, vous devrez supprimer la grille et reprendre sa préparation.</p></section>
 		{:else}<section class="assignment-list" aria-label="Prévisualisation des attributs">{#each shuffledAttributes as item}<article>{#if item.attribute.type === 'prize' && item.attribute.image}<img src={assetUrl(item.attribute.image)} alt="" />{/if}<div><span class:steal={item.attribute.type === 'steal'} class="kind">{item.attribute.type === 'steal' ? 'VOL' : 'LOT'}</span><strong>{item.attribute.type === 'steal' ? 'Vol' : item.attribute.name}</strong></div><span class="target">Case {item.cell.name}</span></article>{/each}</section>{/if}
 		{#if errorMessage}<p class="error" role="alert">{errorMessage}</p>{/if}
-		<div class="actions">{#if isConfirming}<p class="confirmation" role="status">La répartition affichée sera figée et enregistrée. Vous pourrez encore relancer tant que vous n’avez pas confirmé.</p>{/if}<div class="buttons"><button class="secondary" type="button" disabled={isSaving} onclick={randomize}>Relancer le tirage</button>{#if isConfirming}<button class="primary" type="button" disabled={isSaving || (!isChallenge && !activeAttributes.length)} onclick={() => void save()}>{isSaving ? 'Enregistrement…' : 'Confirmer et enregistrer'}</button>{:else}<button class="primary" type="button" disabled={!isChallenge && !activeAttributes.length} onclick={() => isConfirming = true}>Continuer</button>{/if}</div></div>
+		<div class="actions">{#if isConfirming}<p class="confirmation" role="status">{isLockingWithoutAttributes ? 'Les cases seront verrouillées sans attribut. Pour les modifier, il faudra supprimer la grille et recommencer.' : 'La répartition affichée sera figée et enregistrée. Vous pourrez encore relancer tant que vous n’avez pas confirmé.'}</p>{/if}<div class="buttons">{#if !isLockingWithoutAttributes}<button class="secondary" type="button" disabled={isSaving} onclick={randomize}>Relancer le tirage</button>{/if}{#if isConfirming}<button class="primary" type="button" disabled={isSaving} onclick={() => void save()}>{isSaving ? 'Enregistrement…' : isLockingWithoutAttributes ? 'Verrouiller les cases' : 'Confirmer et enregistrer'}</button>{:else}<button class="primary" type="button" onclick={() => isConfirming = true}>{isLockingWithoutAttributes ? 'Continuer sans attribut' : 'Continuer'}</button>{/if}</div></div>
 	</dialog>
 </div>
 

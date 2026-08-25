@@ -113,7 +113,7 @@
 			{#each episodes as episode}
 				<a class="episode-card {episode.state}" href={`/episodes/${episode.id}`}>
 					<div class="card-topline"><span class="state {episode.state}"><i></i>{episodeStateLabel(episode.state)}</span><span aria-hidden="true">→</span></div>
-					<div class="card-copy"><h2>{episode.title}</h2><p>{episode.is_active ? `${episode.time_slot} secondes par question` : 'Épisode désactivé'}</p></div>
+					<div class="card-copy"><h2>{episode.title}</h2><p>{episode.is_active ? `Base : ${episode.time_slot} s × niveau` : 'Épisode désactivé'}</p></div>
 					<dl><div><dt>Grille</dt><dd>{gridLabel(episode)}</dd></div><div><dt>État</dt><dd>{episodeStateLabel(episode.state)}</dd></div></dl>
 				</a>
 			{/each}

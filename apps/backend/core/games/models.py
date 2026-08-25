@@ -42,14 +42,31 @@ class Episode(BaseModel, TimeFramedModel):
     def __str__(self):
         return self.title
 
-    def has_grid(self):
-        return hasattr(self, "grid")
+    def has_locked_grid(self):
+        try:
+            return self.grid.state == "attributes_drawn"
+        except AttributeError:
+            return False
+
+    def missing_start_roles(self):
+        active_roles = set(
+            self.participants.filter(is_active=True).values_list("role", flat=True),
+        )
+        required_roles = {
+            Participant.Role.PLAYER,
+            Participant.Role.PRESENTER,
+            Participant.Role.OPERATOR,
+        }
+        return required_roles - active_roles
+
+    def can_start(self):
+        return self.has_locked_grid() and not self.missing_start_roles()
 
     @transition(
         field=state,
         source=State.PENDING,
         target=State.START,
-        conditions=[has_grid],
+        conditions=[can_start],
     )
     def start(self):
         self.start = timezone.now()

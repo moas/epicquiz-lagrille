@@ -59,7 +59,7 @@
 				{#if titleError}<p class="field-error" id="episode-title-error" role="alert">{titleError}</p>{/if}
 			</div>
 			<div class="field">
-				<label for="episode-time-slot">Durée par question <span>(secondes)</span></label>
+				<label for="episode-time-slot">Base de temps <span>(secondes par niveau)</span></label>
 				<input id="episode-time-slot" bind:value={timeSlot} aria-invalid={Boolean(timeSlotError)} aria-describedby={timeSlotError ? 'episode-time-slot-error' : undefined} type="number" min="1" step="1" disabled={isSaving} onblur={validate} />
 				{#if timeSlotError}<p class="field-error" id="episode-time-slot-error" role="alert">{timeSlotError}</p>{/if}
 			</div>

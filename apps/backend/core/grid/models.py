@@ -26,6 +26,7 @@ class Grid(BaseModel):
     columns = models.PositiveSmallIntegerField(default=8)
     empty_cell_count = models.PositiveSmallIntegerField(default=8)
     point_distribution = models.JSONField(default=dict)
+    max_attrs_per_cell = models.PositiveSmallIntegerField(default=1)
     state = FSMField(
         choices=GridState.choices,
         default=GridState.CONFIGURED,

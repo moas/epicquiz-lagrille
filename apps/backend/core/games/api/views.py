@@ -15,6 +15,7 @@ from core.games.models import Episode
 from core.games.models import EpisodeQuestion
 from core.games.models import PrizeAttribute
 from core.games.models import QueryConfig
+from core.games.models import SpecialAttribute
 from core.games.models import StealAttribute
 from core.games.selectors import eligible_questions_for_episode
 from core.games.services import select_episode_question
@@ -77,6 +78,24 @@ class EpisodeViewSet(viewsets.ModelViewSet):
 
     @action(
         detail=True,
+        methods=["get"],
+        url_path="readiness",
+        url_name="readiness",
+    )
+    def readiness(self, request, pk=None):
+        episode = self.get_object()
+        missing_roles = sorted(episode.missing_start_roles())
+        return Response(
+            {
+                "grid_locked": episode.has_locked_grid(),
+                "missing_roles": missing_roles,
+                "can_start": episode.state == Episode.State.PENDING
+                and episode.can_start(),
+            },
+        )
+
+    @action(
+        detail=True,
         methods=["get", "post", "delete"],
         url_path="grid",
         url_name="grid",
@@ -96,6 +115,13 @@ class EpisodeViewSet(viewsets.ModelViewSet):
             if request.method == "DELETE":
                 grid = get_object_or_404(Grid, episode=episode)
                 grid.delete()
+                # A locked grid is restarted as a whole: its configuration and
+                # special attributes must not survive into the next draw.
+                episode.special_attributes.all().delete()
+                metadata = dict(episode.metadata)
+                metadata.pop("grid_config", None)
+                episode.metadata = metadata
+                episode.save(update_fields=["metadata", "modified"])
                 return Response(status=status.HTTP_204_NO_CONTENT)
 
             if Grid.objects.filter(episode=episode).exists():
@@ -116,6 +142,7 @@ class EpisodeViewSet(viewsets.ModelViewSet):
                 columns=config["columns"],
                 empty_cell_count=config["empty_cell_count"],
                 point_distribution=config["point_distribution"],
+                max_attrs_per_cell=config["max_attrs_per_cell"],
             )
             Cell.objects.bulk_create(
                 [
@@ -449,6 +476,22 @@ class EpisodeViewSet(viewsets.ModelViewSet):
             PrizeAttributeSerializer,
         )
 
+    @action(
+        detail=True,
+        methods=["get"],
+        url_path="special-attributes-summary",
+        url_name="special-attributes-summary",
+    )
+    def special_attributes_summary(self, request, pk=None):
+        episode = self.get_object()
+        queryset = SpecialAttribute.objects.filter(episode=episode)
+        return Response(
+            {
+                "active_count": queryset.filter(is_active=True).count(),
+                "total_count": queryset.count(),
+            },
+        )
+
     @staticmethod
     def _attribute_collection(request, episode, model_class, serializer_class):
         if request.method == "GET":
@@ -459,7 +502,9 @@ class EpisodeViewSet(viewsets.ModelViewSet):
         EpisodeViewSet._ensure_attributes_editable(episode)
         serializer = serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        attribute = serializer.save(episode=episode)
+        # The manager does not expose an activation control at creation time:
+        # every new special attribute must therefore be immediately drawable.
+        attribute = serializer.save(episode=episode, is_active=True)
         return Response(
             serializer_class(attribute).data,
             status=status.HTTP_201_CREATED,
@@ -521,6 +566,7 @@ class EpisodeViewSet(viewsets.ModelViewSet):
             "columns": grid.columns,
             "empty_cell_count": grid.empty_cell_count,
             "point_distribution": grid.point_distribution,
+            "max_attrs_per_cell": grid.max_attrs_per_cell,
             "state": grid.state,
             "cells": list(
                 grid.cells.order_by("x", "y").values(

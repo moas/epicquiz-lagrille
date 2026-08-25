@@ -28,6 +28,7 @@ class GridConfigSerializer(serializers.Serializer):
     rows = serializers.IntegerField(min_value=1, max_value=99)
     columns = serializers.IntegerField(min_value=1, max_value=99)
     empty_cell_count = serializers.IntegerField(min_value=0)
+    max_attrs_per_cell = serializers.IntegerField(default=1, min_value=1)
     point_distribution = serializers.DictField(
         child=serializers.IntegerField(min_value=0),
     )
