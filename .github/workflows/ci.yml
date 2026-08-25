@@ -1,82 +1,89 @@
 name: CI
 
-# Enable Buildkit and let compose use it to speed up image building
-env:
-  DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1
-
 on:
   pull_request:
-    branches: ['main']
-    paths-ignore: ['docs/**']
-
   push:
-    branches: ['main']
-    paths-ignore: ['docs/**']
 
-concurrency:
-  group: ${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
+permissions:
+  contents: read
 
 jobs:
-  linter:
+  changes:
     runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      manager: ${{ steps.filter.outputs.manager }}
     steps:
-      - name: Checkout Code Repository
-        uses: actions/checkout@v6
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
         with:
-          python-version-file: '.python-version'
-      - name: Run pre-commit
-        uses: pre-commit/action@v3.0.1
+          filters: |
+            backend:
+              - 'apps/backend/**'
+              - '.github/workflows/ci.yml'
+            manager:
+              - 'apps/manager/**'
+              - '.github/workflows/ci.yml'
 
-  # With no caching at all the entire ci process takes 3m to complete!
-  pytest:
+  backend:
+    needs: changes
+    if: needs.changes.outputs.backend == 'true'
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: apps/backend
     services:
-      redis:
-        image: redis:7.2
-        ports:
-          - 6379:6379
       postgres:
-        image: postgres:18
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: epicquiz
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
-        env:
-          POSTGRES_PASSWORD: postgres
-
+        options: >-
+          --health-cmd "pg_isready -U postgres -d epicquiz"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     env:
-      REDIS_URL: 'redis://localhost:6379/0'
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'postgres'
-      POSTGRES_HOST: 'localhost'
-      POSTGRES_DB: 'postgres'
-
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/epicquiz
     steps:
-      - name: Checkout Code Repository
-        uses: actions/checkout@v6
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          enable-cache: "true"
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
+          python-version: '3.14'
+      - uses: astral-sh/setup-uv@v6
         with:
-          python-version-file: ".python-version"
-
+          enable-cache: true
+          cache-dependency-glob: apps/backend/uv.lock
       - name: Install dependencies
-        run: uv sync --locked
-
-      - name: Check DB Migrations
-        run: uv run python manage.py makemigrations --check
-
-      - name: Run DB Migrations
-        run: uv run python manage.py migrate
-
-      - name: Test with pytest
+        run: uv sync --frozen --all-groups
+      - name: Lint
+        run: uv run ruff check .
+      - name: Check migrations
+        run: uv run python manage.py makemigrations --check --dry-run
+      - name: Run tests
         run: uv run pytest
+
+  manager:
+    needs: changes
+    if: needs.changes.outputs.manager == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/manager
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/manager/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Check Svelte and TypeScript
+        run: npm run check
+      - name: Build manager
+        run: npm run build
