@@ -48,8 +48,7 @@ def test_staff_can_create_update_and_delete_episode(api_client):
     )
 
     assert update_response.status_code == HTTPStatus.OK
-    episode.refresh_from_db()
-    assert episode.title == "Finale"
+    assert Episode.objects.get(pk=episode.pk).title == "Finale"
 
     delete_response = api_client.delete(
         reverse("api:episode-detail", kwargs={"pk": episode.pk}),
@@ -148,8 +147,7 @@ def test_staff_can_manage_episode_participants(api_client):
     delete_response = api_client.delete(participant_url)
 
     assert delete_response.status_code == HTTPStatus.NO_CONTENT
-    participant.refresh_from_db()
-    assert not participant.is_active
+    assert not Participant.objects.filter(pk=participant.pk).exists()
 
 
 def test_staff_can_manage_episode_query_configs(api_client):
@@ -360,10 +358,11 @@ def test_grid_configuration_requires_one_label_per_coordinate(api_client):
                 },
             },
         },
+        format="json",
     )
 
     assert response.status_code == HTTPStatus.BAD_REQUEST
-    assert "coordinate_format" in response.data["metadata"]
+    assert "coordinate_format" in response.data["metadata"]["grid_config"]
 
 
 def test_staff_can_confirm_challenge_and_attribute_dispatches(api_client):
@@ -459,6 +458,7 @@ def test_staff_can_confirm_challenge_and_attribute_dispatches(api_client):
     )
 
     assert attribute_response.status_code == HTTPStatus.OK
-    grid.refresh_from_db()
-    assert grid.state == Grid.GridState.ATTRIBUTES_DRAWN
+    assert (
+        Grid.objects.get(pk=grid.pk).state == Grid.GridState.ATTRIBUTES_DRAWN
+    )
     assert CellAttribute.objects.filter(attribut=attribute).exists()

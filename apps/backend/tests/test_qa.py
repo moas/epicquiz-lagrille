@@ -155,9 +155,9 @@ def test_staff_can_manage_questions_and_propositions():
         {"id": pretoria_answer_id, "answer": "Pretoria", "is_correct": True},
         {"id": str(add_response.data["id"]), "answer": "Rabat", "is_correct": False},
     ]
-    assert len(api_client.get(reverse("api:qa-proposition-list")).data) == (
-        QUESTION_COUNT
-    )
+    propositions_response = api_client.get(reverse("api:qa-proposition-list"))
+
+    assert propositions_response.data["count"] == QUESTION_COUNT
 
     delete_response = api_client.delete(
         reverse("api:qa-question-detail", kwargs={"pk": question.pk}),
