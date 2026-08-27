@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class ChallengesConfig(AppConfig):
-    name = 'core.challenges'
+    name = "core.challenges"

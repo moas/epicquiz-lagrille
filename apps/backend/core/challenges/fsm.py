@@ -1,4 +1,5 @@
-from enum import unique, auto
+from enum import auto
+from enum import unique
 
 from django.utils.translation import gettext_lazy as _
 
@@ -13,9 +14,9 @@ class ChallengeState(AutoName):
 
 
 ChallengeStateChoices = (
-    (ChallengeState.PENDING.value, _('PENDING')),
-    (ChallengeState.OPENED.value, _('OPENED')),
-    (ChallengeState.CLOSED.value, _('CLOSED')),
+    (ChallengeState.PENDING.value, _("PENDING")),
+    (ChallengeState.OPENED.value, _("OPENED")),
+    (ChallengeState.CLOSED.value, _("CLOSED")),
 )
 
 
@@ -30,10 +31,10 @@ class UserResponseState(AutoName):
 
 
 UserResponseStateChoices = (
-    (UserResponseState.PENDING.value, _('PENDING')),
-    (UserResponseState.SUBMIT.value, _('SUBMIT')),
-    (UserResponseState.OUTDATED.value, _('OUTDATED')),
-    (UserResponseState.SUCCEEDED.value, _('SUCCEEDED')),
-    (UserResponseState.FAILED.value, _('FAILED')),
-    (UserResponseState.SKIPPED.value, _('SKIPPED')),
+    (UserResponseState.PENDING.value, _("PENDING")),
+    (UserResponseState.SUBMIT.value, _("SUBMIT")),
+    (UserResponseState.OUTDATED.value, _("OUTDATED")),
+    (UserResponseState.SUCCEEDED.value, _("SUCCEEDED")),
+    (UserResponseState.FAILED.value, _("FAILED")),
+    (UserResponseState.SKIPPED.value, _("SKIPPED")),
 )

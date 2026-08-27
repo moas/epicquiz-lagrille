@@ -3,11 +3,11 @@ from django.utils.translation import gettext_lazy as _
 from django_fsm import FSMField
 from django_fsm import transition
 
+from core.challenges.models import Challenge
 from core.games.models import Episode
 from core.games.models import PrizeAttribute
 from core.games.models import SpecialAttribute
 from core.games.models import StealAttribute
-from core.challenges.models import Challenge
 from core.helpers.models import BaseModel
 
 

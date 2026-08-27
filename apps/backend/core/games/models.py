@@ -89,8 +89,16 @@ class Participant(BaseModel):
         PRESENTER = "PRESENTER", _("Presenter")
         OPERATOR = "OPERATOR", _("Operator")
 
-    episode = models.ForeignKey(Episode, on_delete=models.CASCADE, related_name="participants")
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='game_participant')
+    episode = models.ForeignKey(
+        Episode,
+        on_delete=models.CASCADE,
+        related_name="participants",
+    )
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="game_participant",
+    )
     role = models.CharField(max_length=20, choices=Role.choices, db_index=True)
     is_active = models.BooleanField(default=True)
     tags = ArrayField(
@@ -190,7 +198,11 @@ class EpisodeQuestion(BaseModel):
 
 
 class SpecialAttribute(PolymorphicModel, BaseModel):
-    episode = models.ForeignKey(Episode, on_delete=models.CASCADE, related_name="special_attributes")
+    episode = models.ForeignKey(
+        Episode,
+        on_delete=models.CASCADE,
+        related_name="special_attributes",
+    )
     is_active = models.BooleanField(default=True)
 
 
@@ -200,5 +212,5 @@ class StealAttribute(SpecialAttribute):
 
 class PrizeAttribute(SpecialAttribute):
     name = models.CharField(max_length=160)
-    description = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to='prizes')
+    description = models.TextField(blank=True, null=True)  # noqa: DJ001
+    image = models.ImageField(upload_to="prizes")

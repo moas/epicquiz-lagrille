@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class GamesConfig(AppConfig):
-    name = 'core.games'
+    name = "core.games"

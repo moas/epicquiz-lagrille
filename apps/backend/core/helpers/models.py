@@ -1,4 +1,5 @@
-from model_utils.models import UUIDModel, TimeStampedModel
+from model_utils.models import TimeStampedModel
+from model_utils.models import UUIDModel
 
 
 class BaseModel(UUIDModel, TimeStampedModel):
