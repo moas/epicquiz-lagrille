@@ -9,6 +9,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.urls import path
 
 from core.realtime.consumers import UNAUTHORIZED_CLOSE_CODE
+from core.realtime.consumers import AuthenticatedWebsocketConsumer
 from core.realtime.consumers import PingConsumer
 from core.realtime.middleware import DRF_TOKEN_SUBPROTOCOL
 from core.realtime.middleware import DRFTokenAuthMiddleware
@@ -35,16 +36,26 @@ def token_authenticated_application():
     )
 
 
+def test_ping_consumer_uses_authenticated_consumer_base():
+    assert issubclass(PingConsumer, AuthenticatedWebsocketConsumer)
+
+
 @pytest.mark.asyncio
 async def test_ping_consumer_echoes_pong_for_authenticated_token():
     token = "a" * 40
     application = token_authenticated_application()
     user = SimpleNamespace(is_authenticated=True)
 
-    with patch(
-        "core.realtime.middleware.get_user_from_token",
-        new=AsyncMock(return_value=user),
-    ) as get_user:
+    with (
+        patch(
+            "core.realtime.middleware.get_user_from_token",
+            new=AsyncMock(return_value=user),
+        ) as get_user,
+        patch(
+            "core.realtime.consumers.update_last_ping",
+            new=AsyncMock(),
+        ) as update_last_ping,
+    ):
         communicator = WebsocketCommunicator(
             application,
             "/ws/ping/",
@@ -55,13 +66,14 @@ async def test_ping_consumer_echoes_pong_for_authenticated_token():
         assert connected is True
         assert subprotocol == DRF_TOKEN_SUBPROTOCOL
 
-        await communicator.send_to(text_data="hello")
+        await communicator.send_to(text_data="ping")
         response = await communicator.receive_from()
-        assert response == "pong: hello"
+        assert response == "pong"
 
         await communicator.disconnect()
 
     get_user.assert_awaited_once_with(token)
+    update_last_ping.assert_awaited_once_with(user)
 
 
 @pytest.mark.asyncio
