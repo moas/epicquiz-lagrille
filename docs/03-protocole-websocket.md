@@ -23,7 +23,7 @@ Identique pour HTTP et WebSocket : le même `Token` DRF.
 2. Le Manager distribue les `username` générés aux appareils avant le direct.
 3. Au démarrage de l'app : `POST /api/auth/join/ {username, name}`. Le serveur renseigne `User.name`, invalide l'éventuel token existant, en émet un nouveau.
 4. Toute requête HTTP ultérieure porte l'en-tête `Authorization: Token <drf_token>` (`TokenAuthentication` standard DRF).
-5. La connexion WebSocket s'ouvre avec `?token=<drf_token>` en query string. Un middleware ASGI dédié (`TokenAuthMiddleware`) résout le token en `User`, puis le Consumer résout le `Participant` correspondant à l'épisode de l'URL (ou le rôle virtuel `"manager"` via `is_staff` si aucun `Participant` n'existe).
+5. La connexion WebSocket s'ouvre avec l'en-tête standard `Sec-WebSocket-Protocol: drf-token, <drf_token>` (dans le navigateur : `new WebSocket(url, ["drf-token", token])`). Un middleware ASGI dédié (`DRFTokenAuthMiddleware`) résout le token en `User`, puis le Consumer résout le `Participant` correspondant à l'épisode de l'URL (ou le rôle virtuel `"manager"` via `is_staff` si aucun `Participant` n'existe). Le serveur négocie uniquement le sous-protocole `drf-token` : le token n'est jamais renvoyé.
 
 **Le rôle n'est jamais déclaré par le client** — toujours résolu côté serveur, aussi bien pour valider une requête HTTP que pour déterminer le contenu poussé sur WebSocket.
 

@@ -4,7 +4,6 @@ import os
 import sys
 from pathlib import Path
 
-from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter
 from channels.routing import URLRouter
 from channels.security.websocket import AllowedHostsOriginValidator
@@ -18,13 +17,14 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 # (Channels consumers, routing) — this populates the app registry.
 django_asgi_app = get_asgi_application()
 
+from core.realtime.middleware import DRFTokenAuthMiddleware  # noqa: E402
 from core.realtime.routing import websocket_urlpatterns  # noqa: E402
 
 application = ProtocolTypeRouter(
     {
         "http": django_asgi_app,
         "websocket": AllowedHostsOriginValidator(
-            AuthMiddlewareStack(URLRouter(websocket_urlpatterns)),
+            DRFTokenAuthMiddleware(URLRouter(websocket_urlpatterns)),
         ),
     },
 )
