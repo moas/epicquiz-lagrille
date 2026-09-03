@@ -72,6 +72,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ROOT_URLCONF = "config.urls"
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
+# https://channels.readthedocs.io/en/stable/topics/routing.html
+ASGI_APPLICATION = "config.asgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
@@ -88,6 +90,7 @@ DJANGO_APPS = [
     "django.contrib.postgres",
 ]
 THIRD_PARTY_APPS = [
+    "channels",
     "polymorphic",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -106,6 +109,7 @@ LOCAL_APPS = [
     "core.games.apps.GamesConfig",
     "core.grid.apps.GridConfig",
     "core.challenges.apps.ChallengesConfig",
+    "core.realtime.apps.RealtimeConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -276,6 +280,18 @@ LOGGING = {
 
 REDIS_URL = env("REDIS_URL", default="redis://localhost:6379/0")
 REDIS_SSL = REDIS_URL.startswith("rediss://")
+
+# Channels
+# ------------------------------------------------------------------------------
+# https://channels.readthedocs.io/en/stable/topics/channel_layers.html
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [REDIS_URL],
+        },
+    },
+}
 
 # Celery
 # ------------------------------------------------------------------------------
