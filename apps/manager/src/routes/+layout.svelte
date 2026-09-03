@@ -4,28 +4,36 @@
 	import { onMount } from 'svelte';
 
 	import { hasManagerToken, sessionStore } from '$lib/auth';
+	import { startHeartbeat } from '$lib/heartbeat';
+	import PresenceIndicator from '$lib/PresenceIndicator.svelte';
 
 	let { children } = $props();
 	let isCheckingSession = $state(true);
 
-	onMount(async () => {
+	onMount(() => {
 		sessionStore.getState().hydrate();
-		const isLoginPage = page.url.pathname === '/login';
-		const hasToken = hasManagerToken();
+		const stopHeartbeat = startHeartbeat();
 
-		if (!hasToken && !isLoginPage) {
-			await goto('/login', { replaceState: true });
+		void (async () => {
+			const isLoginPage = page.url.pathname === '/login';
+			const hasToken = hasManagerToken();
+
+			if (!hasToken && !isLoginPage) {
+				await goto('/login', { replaceState: true });
+				isCheckingSession = false;
+				return;
+			}
+
+			if (hasToken && isLoginPage) {
+				await goto('/', { replaceState: true });
+				isCheckingSession = false;
+				return;
+			}
+
 			isCheckingSession = false;
-			return;
-		}
+		})();
 
-		if (hasToken && isLoginPage) {
-			await goto('/', { replaceState: true });
-			isCheckingSession = false;
-			return;
-		}
-
-		isCheckingSession = false;
+		return stopHeartbeat;
 	});
 </script>
 
@@ -37,6 +45,9 @@
 {#if isCheckingSession && page.url.pathname !== '/login'}
 	<div class="session-check" role="status">Vérification de votre session…</div>
 {:else}
+	{#if page.url.pathname !== '/login'}
+		<PresenceIndicator />
+	{/if}
 	{@render children()}
 {/if}
 
