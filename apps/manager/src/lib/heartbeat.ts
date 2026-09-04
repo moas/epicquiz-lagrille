@@ -3,7 +3,7 @@ import { sessionStore } from '$lib/auth';
 export const HEARTBEAT_PONG_EVENT = 'heartbeat:pong';
 export const heartbeatEvents = new EventTarget();
 
-const PING_INTERVAL_MS = 15_000;
+const PING_INTERVAL_MS = 10_000;
 const RECONNECT_DELAY_MS = 5_000;
 
 let socket: WebSocket | null = null;
