@@ -13,6 +13,11 @@ jobs:
     outputs:
       backend: ${{ steps.filter.outputs.backend }}
       manager: ${{ steps.filter.outputs.manager }}
+      monitor: ${{ steps.filter.outputs.monitor }}
+      operator: ${{ steps.filter.outputs.operator }}
+      player: ${{ steps.filter.outputs.player }}
+      presenter: ${{ steps.filter.outputs.presenter }}
+      tv: ${{ steps.filter.outputs.tv }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
@@ -24,6 +29,21 @@ jobs:
               - '.github/workflows/ci.yml'
             manager:
               - 'apps/manager/**'
+              - '.github/workflows/ci.yml'
+            monitor:
+              - 'apps/monitor/**'
+              - '.github/workflows/ci.yml'
+            operator:
+              - 'apps/operator/**'
+              - '.github/workflows/ci.yml'
+            player:
+              - 'apps/player/**'
+              - '.github/workflows/ci.yml'
+            presenter:
+              - 'apps/presenter/**'
+              - '.github/workflows/ci.yml'
+            tv:
+              - 'apps/tv/**'
               - '.github/workflows/ci.yml'
 
   backend:
@@ -92,6 +112,121 @@ jobs:
       - name: Build manager
         run: npm run build
 
+  monitor:
+    needs: changes
+    if: >-
+      needs.changes.outputs.monitor == 'true' ||
+      startsWith(github.ref, 'refs/tags/monitor-v')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/monitor
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/monitor/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Check Svelte and TypeScript
+        run: npm run check
+      - name: Build monitor
+        run: npm run build
+
+  operator:
+    needs: changes
+    if: >-
+      needs.changes.outputs.operator == 'true' ||
+      startsWith(github.ref, 'refs/tags/operator-v')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/operator
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/operator/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Check Svelte and TypeScript
+        run: npm run check
+      - name: Build operator
+        run: npm run build
+
+  player:
+    needs: changes
+    if: >-
+      needs.changes.outputs.player == 'true' ||
+      startsWith(github.ref, 'refs/tags/player-v')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/player
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/player/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Check Svelte and TypeScript
+        run: npm run check
+      - name: Build player
+        run: npm run build
+
+  presenter:
+    needs: changes
+    if: >-
+      needs.changes.outputs.presenter == 'true' ||
+      startsWith(github.ref, 'refs/tags/presenter-v')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/presenter
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/presenter/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Check Svelte and TypeScript
+        run: npm run check
+      - name: Build presenter
+        run: npm run build
+
+  tv:
+    needs: changes
+    if: >-
+      needs.changes.outputs.tv == 'true' ||
+      startsWith(github.ref, 'refs/tags/tv-v')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/tv
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/tv/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Check Svelte and TypeScript
+        run: npm run check
+      - name: Build tv
+        run: npm run build
+
   publish-backend:
     needs: [changes, backend]
     if: >-
@@ -158,6 +293,181 @@ jobs:
         with:
           context: apps/manager
           file: apps/manager/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  publish-monitor:
+    needs: [changes, monitor]
+    if: >-
+      github.event_name == 'push' &&
+      (needs.changes.outputs.monitor == 'true' || startsWith(github.ref, 'refs/tags/monitor-v')) &&
+      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/monitor-v'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ${{ secrets.REGISTRY_ENDPOINT }}/lagrille/monitor
+          tags: |
+            type=raw,value=dev,enable=${{ github.ref == 'refs/heads/develop' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=match,pattern=monitor-v(.*),group=1
+            type=sha
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY_ENDPOINT }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWD }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: apps/monitor
+          file: apps/monitor/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  publish-operator:
+    needs: [changes, operator]
+    if: >-
+      github.event_name == 'push' &&
+      (needs.changes.outputs.operator == 'true' || startsWith(github.ref, 'refs/tags/operator-v')) &&
+      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/operator-v'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ${{ secrets.REGISTRY_ENDPOINT }}/lagrille/operator
+          tags: |
+            type=raw,value=dev,enable=${{ github.ref == 'refs/heads/develop' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=match,pattern=operator-v(.*),group=1
+            type=sha
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY_ENDPOINT }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWD }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: apps/operator
+          file: apps/operator/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  publish-player:
+    needs: [changes, player]
+    if: >-
+      github.event_name == 'push' &&
+      (needs.changes.outputs.player == 'true' || startsWith(github.ref, 'refs/tags/player-v')) &&
+      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/player-v'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ${{ secrets.REGISTRY_ENDPOINT }}/lagrille/player
+          tags: |
+            type=raw,value=dev,enable=${{ github.ref == 'refs/heads/develop' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=match,pattern=player-v(.*),group=1
+            type=sha
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY_ENDPOINT }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWD }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: apps/player
+          file: apps/player/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  publish-presenter:
+    needs: [changes, presenter]
+    if: >-
+      github.event_name == 'push' &&
+      (needs.changes.outputs.presenter == 'true' || startsWith(github.ref, 'refs/tags/presenter-v')) &&
+      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/presenter-v'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ${{ secrets.REGISTRY_ENDPOINT }}/lagrille/presenter
+          tags: |
+            type=raw,value=dev,enable=${{ github.ref == 'refs/heads/develop' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=match,pattern=presenter-v(.*),group=1
+            type=sha
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY_ENDPOINT }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWD }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: apps/presenter
+          file: apps/presenter/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  publish-tv:
+    needs: [changes, tv]
+    if: >-
+      github.event_name == 'push' &&
+      (needs.changes.outputs.tv == 'true' || startsWith(github.ref, 'refs/tags/tv-v')) &&
+      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/tv-v'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ${{ secrets.REGISTRY_ENDPOINT }}/lagrille/tv
+          tags: |
+            type=raw,value=dev,enable=${{ github.ref == 'refs/heads/develop' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=match,pattern=tv-v(.*),group=1
+            type=sha
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY_ENDPOINT }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWD }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: apps/tv
+          file: apps/tv/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
